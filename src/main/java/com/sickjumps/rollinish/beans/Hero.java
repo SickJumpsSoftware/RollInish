@@ -1,4 +1,4 @@
-package com.twistoff.dmhelper.beans;
+package com.sickjumps.rollinish.beans;
 
 /**
  *

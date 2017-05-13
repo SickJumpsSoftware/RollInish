@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.twistoff.dmhelper.gui;
+package com.sickjumps.rollinish.gui;
 
-import com.twistoff.dmhelper.beans.Campaign;
+import com.sickjumps.rollinish.beans.Campaign;
 import javax.swing.GroupLayout;
 import javax.swing.WindowConstants;
 
