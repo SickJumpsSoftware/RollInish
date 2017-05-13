@@ -11,15 +11,16 @@ import java.util.Objects;
  */
 
 public class Campaign implements Serializable {
-    private ArrayList<Participant> players;
-    private String campaignName;
+    private final ArrayList<Participant> players;
+    private final String campaignName;
     
     public Campaign() {
-        this.campaignName = "Default Campaign";
+        this("Default Campaign");
     }
 
     public Campaign(String campaignName) {
         this.campaignName = campaignName;
+        players = new ArrayList<>();
     }
 
     public String getCampaignName() {

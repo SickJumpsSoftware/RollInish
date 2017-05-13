@@ -23,9 +23,8 @@ public class CampaignSerializer {
         oos.writeObject(campaign);
     }
     
-    public Campaign load(FileInputStream fis) {
-        Campaign c = new Campaign();
-        
-        return c;
+    public Campaign load(FileInputStream fis) throws IOException, ClassNotFoundException {
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        return (Campaign) ois.readObject();
     }
 }
