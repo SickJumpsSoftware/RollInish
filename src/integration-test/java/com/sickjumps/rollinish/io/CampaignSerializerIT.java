@@ -1,24 +1,27 @@
 package com.sickjumps.rollinish.io;
 
 import com.sickjumps.rollinish.beans.Campaign;
+import com.sickjumps.rollinish.io.CampaignSerializer;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
-import static org.junit.Assert.assertTrue;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import static org.junit.Assert.assertTrue;
 
 /**
  *
  * @author Nathan
  */
 
-public class CampaignSerializerTest {
-    private final static Logger LOGGER = LoggerFactory.getLogger(CampaignSerializerTest.class);
+public class CampaignSerializerIT {
+    private final static Logger LOGGER = LoggerFactory.getLogger(CampaignSerializerIT.class);
 
     @Test
     public void saveWritesObjectToDisk() throws FileNotFoundException, IOException {
@@ -71,5 +74,13 @@ public class CampaignSerializerTest {
         LOGGER.trace("clean up test");
         File testFile = new File(filename);
         Files.delete(testFile.toPath());
+    }
+    
+    @Test
+    public void testLocalDateTimeFormattingWithStringFormat() {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy hh.mm.ss a");
+        String filename = String.format("%s - %s.campaign", "test", formatter.format(now));
+        System.out.println(filename);
     }
 }
