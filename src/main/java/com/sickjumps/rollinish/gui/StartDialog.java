@@ -16,6 +16,7 @@
  */
 package com.sickjumps.rollinish.gui;
 
+import com.sickjumps.rollinish.ApplicationConfiguration;
 import com.sickjumps.rollinish.campaign.Campaign;
 import com.sickjumps.rollinish.campaign.CampaignManager;
 import java.awt.event.ActionEvent;
@@ -31,23 +32,38 @@ import javax.swing.WindowConstants;
  */
 public class StartDialog extends javax.swing.JDialog {
     
+    private ApplicationConfiguration config;
     private CampaignManager cm;
     private Campaign c;
     
     /**
      * Creates new form StartDialog
      */
-    public StartDialog(java.awt.Frame parent, boolean modal, CampaignManager cm) {
+    public StartDialog(java.awt.Frame parent, boolean modal, CampaignManager cm, ApplicationConfiguration config) {
         super(parent, modal);
         
         this.cm = cm;
+        this.config = config;
         
         initComponents();
+        
+        configureRecentCampaignButton();
     }
     
     public Campaign getResult() {
         this.setVisible(true);
         return c;
+    }
+    
+    private void configureRecentCampaignButton() {
+        String name = config.getLastCampaignName();
+        
+        if (name.isEmpty()) {
+            this.btnMostRecentCampaign.setEnabled(false);
+        } else {
+            this.btnMostRecentCampaign.setEnabled(true);
+            this.btnMostRecentCampaign.setText("Load Recent Campaign: " + name);
+        }
     }
 
     /**

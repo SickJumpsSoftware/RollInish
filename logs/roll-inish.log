@@ -15,3 +15,43 @@ java.io.FileNotFoundException: file:\C:\Users\Nathan\Development\java\RollInish\
 2017-05-20 19:27:29,416 INFO [main] c.s.r.RollInish [RollInish.java:33] Start GUI
 2017-05-20 19:27:29,501 INFO [AWT-EventQueue-0] c.s.r.RollInish [RollInish.java:35] Show start dialog
 2017-05-20 19:27:50,468 INFO [AWT-EventQueue-0] c.s.r.RollInish [RollInish.java:38] Show main campaign frame
+2017-05-20 20:10:45,199 INFO [main] c.s.r.RollInish [RollInish.java:26] Initializing application configuration
+2017-05-20 20:10:45,203 TRACE [main] c.s.r.ApplicationConfiguration [ApplicationConfiguration.java:19] empty constructor
+2017-05-20 20:10:45,230 TRACE [main] c.s.r.ApplicationConfiguration [ApplicationConfiguration.java:59] entering setDefaultCampaignSaveDirectory, directory = C:\Users\Nathan
+2017-05-20 20:10:45,230 TRACE [main] c.s.r.ApplicationConfiguration [ApplicationConfiguration.java:63] exiting setDefaultCampaignSaveDirectory
+2017-05-20 20:10:45,230 INFO [main] c.s.r.RollInish [RollInish.java:30] Initialize campaign manager
+2017-05-20 20:10:45,232 INFO [main] c.s.r.RollInish [RollInish.java:33] Start GUI
+2017-05-20 20:10:45,315 INFO [AWT-EventQueue-0] c.s.r.RollInish [RollInish.java:35] Show start dialog
+2017-05-20 20:10:52,537 TRACE [AWT-EventQueue-0] c.s.r.ApplicationConfiguration [ApplicationConfiguration.java:32] entering getLastCampaignSaveDirectory
+2017-05-20 20:10:52,538 DEBUG [AWT-EventQueue-0] c.s.r.ApplicationConfiguration [ApplicationConfiguration.java:35] found last campaign save directory: 
+2017-05-20 20:11:10,803 TRACE [AWT-EventQueue-0] c.s.r.ApplicationConfiguration [ApplicationConfiguration.java:67] entering setLastCampaignName, name = test
+2017-05-20 20:11:10,804 TRACE [AWT-EventQueue-0] c.s.r.ApplicationConfiguration [ApplicationConfiguration.java:71] exiting setLastCampaignName
+2017-05-20 20:11:10,804 TRACE [AWT-EventQueue-0] c.s.r.ApplicationConfiguration [ApplicationConfiguration.java:41] entering setLastCampaignSaveDirectory, directory = C:\Users\Nathan\Documents\RollInish Campaigns
+2017-05-20 20:11:10,805 TRACE [AWT-EventQueue-0] c.s.r.ApplicationConfiguration [ApplicationConfiguration.java:46] exiting setLastCampaignSaveDirectory
+2017-05-20 20:11:10,855 INFO [AWT-EventQueue-0] c.s.r.RollInish [RollInish.java:38] Show main campaign frame
+2017-05-20 20:18:17,662 INFO [main] c.s.r.RollInish [RollInish.java:25] Initializing application configuration
+2017-05-20 20:18:17,667 TRACE [main] c.s.r.ApplicationConfiguration [ApplicationConfiguration.java:19] empty constructor
+2017-05-20 20:18:17,669 TRACE [main] c.s.r.ApplicationConfiguration [ApplicationConfiguration.java:51] entering setDefaultCampaignSaveDirectory, directory = C:\Users\Nathan
+2017-05-20 20:18:17,669 TRACE [main] c.s.r.ApplicationConfiguration [ApplicationConfiguration.java:55] exiting setDefaultCampaignSaveDirectory
+2017-05-20 20:18:17,669 INFO [main] c.s.r.RollInish [RollInish.java:29] Initialize campaign manager
+2017-05-20 20:18:17,671 INFO [main] c.s.r.RollInish [RollInish.java:32] Start GUI
+2017-05-20 20:18:17,749 INFO [AWT-EventQueue-0] c.s.r.RollInish [RollInish.java:34] Show start dialog
+2017-05-20 20:18:17,947 TRACE [AWT-EventQueue-0] c.s.r.ApplicationConfiguration [ApplicationConfiguration.java:59] entering getLastCampaignName
+2017-05-20 20:18:17,948 DEBUG [AWT-EventQueue-0] c.s.r.ApplicationConfiguration [ApplicationConfiguration.java:63] no recent campaign found, returning empty string
+2017-05-20 20:18:23,883 TRACE [AWT-EventQueue-0] c.s.r.ApplicationConfiguration [ApplicationConfiguration.java:24] entering getLastCampaignSaveDirectory
+2017-05-20 20:18:23,884 DEBUG [AWT-EventQueue-0] c.s.r.ApplicationConfiguration [ApplicationConfiguration.java:27] found last campaign save directory: C:\Users\Nathan\Documents\RollInish Campaigns
+2017-05-20 20:18:30,100 TRACE [AWT-EventQueue-0] c.s.r.ApplicationConfiguration [ApplicationConfiguration.java:72] entering setLastCampaignName, name = test
+2017-05-20 20:18:30,100 TRACE [AWT-EventQueue-0] c.s.r.ApplicationConfiguration [ApplicationConfiguration.java:76] exiting setLastCampaignName
+2017-05-20 20:18:30,101 TRACE [AWT-EventQueue-0] c.s.r.ApplicationConfiguration [ApplicationConfiguration.java:33] entering setLastCampaignSaveDirectory, directory = C:\Users\Nathan\Documents\RollInish Campaigns
+2017-05-20 20:18:30,101 TRACE [AWT-EventQueue-0] c.s.r.ApplicationConfiguration [ApplicationConfiguration.java:38] exiting setLastCampaignSaveDirectory
+2017-05-20 20:18:30,152 INFO [AWT-EventQueue-0] c.s.r.RollInish [RollInish.java:37] Show main campaign frame
+2017-05-20 20:18:39,914 INFO [main] c.s.r.RollInish [RollInish.java:25] Initializing application configuration
+2017-05-20 20:18:39,919 TRACE [main] c.s.r.ApplicationConfiguration [ApplicationConfiguration.java:19] empty constructor
+2017-05-20 20:18:39,921 TRACE [main] c.s.r.ApplicationConfiguration [ApplicationConfiguration.java:51] entering setDefaultCampaignSaveDirectory, directory = C:\Users\Nathan
+2017-05-20 20:18:39,921 TRACE [main] c.s.r.ApplicationConfiguration [ApplicationConfiguration.java:55] exiting setDefaultCampaignSaveDirectory
+2017-05-20 20:18:39,921 INFO [main] c.s.r.RollInish [RollInish.java:29] Initialize campaign manager
+2017-05-20 20:18:39,923 INFO [main] c.s.r.RollInish [RollInish.java:32] Start GUI
+2017-05-20 20:18:40,011 INFO [AWT-EventQueue-0] c.s.r.RollInish [RollInish.java:34] Show start dialog
+2017-05-20 20:18:40,204 TRACE [AWT-EventQueue-0] c.s.r.ApplicationConfiguration [ApplicationConfiguration.java:59] entering getLastCampaignName
+2017-05-20 20:18:40,205 DEBUG [AWT-EventQueue-0] c.s.r.ApplicationConfiguration [ApplicationConfiguration.java:63] no recent campaign found, returning empty string
+2017-05-20 20:18:50,189 INFO [AWT-EventQueue-0] c.s.r.RollInish [RollInish.java:37] Show main campaign frame

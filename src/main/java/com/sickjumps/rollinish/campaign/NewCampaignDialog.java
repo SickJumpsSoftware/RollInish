@@ -38,8 +38,8 @@ import javax.swing.LayoutStyle;
  */
 public class NewCampaignDialog extends JDialog {
     
-    private CampaignInfoDTO nci;
-    private ApplicationConfiguration config;
+    private final CampaignInfoDTO nci;
+    private final ApplicationConfiguration config;
 
     /**
      * Creates new form NewCampaignDialog
@@ -54,7 +54,7 @@ public class NewCampaignDialog extends JDialog {
         
         this.setTitle("Enter New Campaign Information");
         
-        this.txtSaveDirectory.setText(config.getLastOrDefaultCampaignSaveDirectory().toString());
+        this.txtSaveDirectory.setText(config.getLastCampaignSaveDirectory());
     }
     
     public CampaignInfoDTO getResult() {

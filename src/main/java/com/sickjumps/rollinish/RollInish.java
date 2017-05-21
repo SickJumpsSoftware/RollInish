@@ -6,7 +6,6 @@ import com.sickjumps.rollinish.gui.CampaignFrame;
 import com.sickjumps.rollinish.gui.StartDialog;
 import com.sickjumps.rollinish.io.CampaignSerializer;
 import com.sickjumps.rollinish.io.DateBasedNamingStrategy;
-import java.net.URL;
 import javax.swing.SwingUtilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +32,7 @@ public class RollInish {
         LOGGER.info("Start GUI");
         SwingUtilities.invokeLater(() -> {
             LOGGER.info("Show start dialog");
-            Campaign c = new StartDialog(null, true, cm).getResult();
+            Campaign c = new StartDialog(null, true, cm, configuration).getResult();
             
             LOGGER.info("Show main campaign frame");
             CampaignFrame frame = new CampaignFrame(c);

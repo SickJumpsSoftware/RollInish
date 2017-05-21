@@ -19,18 +19,18 @@ public class CampaignManager {
     
     private final static Logger logger = LoggerFactory.getLogger(CampaignManager.class);
 
-    private final ApplicationConfiguration configuration;
+    private final ApplicationConfiguration config;
     private final CampaignSerializer cs;
     private final NamingStrategy strategy;
     
     public CampaignManager(ApplicationConfiguration config, CampaignSerializer cs, NamingStrategy strategy) {
-        this.configuration = config;
+        this.config = config;
         this.cs = cs;
         this.strategy = strategy;
     }
     
     public Campaign createNewCampaign() {
-        CampaignInfoDTO dto = new NewCampaignDialog(null, true, configuration).getResult();
+        CampaignInfoDTO dto = new NewCampaignDialog(null, true, config).getResult();
         
         updateMostRecentCampaignSettings(dto);
         
@@ -58,8 +58,8 @@ public class CampaignManager {
     private void updateMostRecentCampaignSettings(CampaignInfoDTO dto) {
         Path mostRecent = Paths.get(dto.getSaveDirectory());
         
-        configuration.setLastCampaignName(dto.getCampaignName());
-        configuration.setLastCampaignSaveDirectory(mostRecent);
+        config.setLastCampaignName(dto.getCampaignName());
+        config.setLastCampaignSaveDirectory(mostRecent);
     }
     
     private Path generateFileNameFromDTO(CampaignInfoDTO dto) {
