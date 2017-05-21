@@ -19,6 +19,7 @@ package com.sickjumps.rollinish.gui;
 import com.sickjumps.rollinish.campaign.Campaign;
 import javax.swing.GroupLayout;
 import javax.swing.JFrame;
+import javax.swing.JToolBar;
 import javax.swing.WindowConstants;
 
 /**
@@ -43,20 +44,27 @@ public class CampaignFrame extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jToolBar1 = new JToolBar();
+
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        jToolBar1.setRollover(true);
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jToolBar1, GroupLayout.DEFAULT_SIZE, 1004, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 745, Short.MAX_VALUE)
+                .addComponent(jToolBar1, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
 }

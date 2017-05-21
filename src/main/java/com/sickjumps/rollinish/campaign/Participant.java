@@ -1,4 +1,4 @@
-package com.sickjumps.rollinish.beans;
+package com.sickjumps.rollinish.campaign;
 
 /**
  *
@@ -7,10 +7,12 @@ package com.sickjumps.rollinish.beans;
 
 public class Participant {
     private String characterName;
+    private String playerName;
     private int initiative;
 
-    public Participant(String characterName) {
+    public Participant(String characterName, String playerName) {
         this.characterName = characterName;
+        this.playerName = playerName;
         this.initiative = 0;
     }
 
@@ -20,6 +22,14 @@ public class Participant {
 
     public void setCharacterName(String characterName) {
         this.characterName = characterName;
+    }
+
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
     }
 
     public int getInitiative() {

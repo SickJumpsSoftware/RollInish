@@ -21,7 +21,9 @@ import javax.swing.GroupLayout;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.LayoutStyle;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -45,42 +47,59 @@ public class EncounterPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new JScrollPane();
-        lstAvailable = new JList<>();
-        jScrollPane2 = new JScrollPane();
-        lstActive = new JList<>();
+        vptAvailable = new JScrollPane();
+        tblAvailable = new JTable();
+        vptActive = new JScrollPane();
+        tblActive = new JTable();
         tabMonsterPane = new JTabbedPane();
-        jScrollPane3 = new JScrollPane();
-        lstMonsters = new JList<>();
+        vptMonsters = new JScrollPane();
+        tblMonsters = new JTable();
 
-        lstAvailable.setModel(new AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        lstAvailable.setDragEnabled(true);
-        lstAvailable.setName("available"); // NOI18N
-        jScrollPane1.setViewportView(lstAvailable);
+        tblAvailable.setModel(new DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblAvailable.setFillsViewportHeight(true);
+        vptAvailable.setViewportView(tblAvailable);
 
-        lstActive.setModel(new AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        lstActive.setDragEnabled(true);
-        lstActive.setName("active"); // NOI18N
-        jScrollPane2.setViewportView(lstActive);
+        tblActive.setModel(new DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblActive.setFillsViewportHeight(true);
+        vptActive.setViewportView(tblActive);
 
         tabMonsterPane.setName("monsters"); // NOI18N
 
-        lstMonsters.setModel(new AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane3.setViewportView(lstMonsters);
+        tblMonsters.setModel(new DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblMonsters.setFillsViewportHeight(true);
+        vptMonsters.setViewportView(tblMonsters);
 
-        tabMonsterPane.addTab("tab1", jScrollPane3);
+        tabMonsterPane.addTab("tab1", vptMonsters);
 
         GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
@@ -90,17 +109,17 @@ public class EncounterPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(tabMonsterPane)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 467, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(vptAvailable, GroupLayout.PREFERRED_SIZE, 467, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)))
+                        .addComponent(vptActive, GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2)
-                    .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE))
+                    .addComponent(vptActive)
+                    .addComponent(vptAvailable, GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(tabMonsterPane, GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
                 .addContainerGap())
@@ -109,12 +128,12 @@ public class EncounterPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private JScrollPane jScrollPane1;
-    private JScrollPane jScrollPane2;
-    private JScrollPane jScrollPane3;
-    private JList<String> lstActive;
-    private JList<String> lstAvailable;
-    private JList<String> lstMonsters;
     private JTabbedPane tabMonsterPane;
+    private JTable tblActive;
+    private JTable tblAvailable;
+    private JTable tblMonsters;
+    private JScrollPane vptActive;
+    private JScrollPane vptAvailable;
+    private JScrollPane vptMonsters;
     // End of variables declaration//GEN-END:variables
 }

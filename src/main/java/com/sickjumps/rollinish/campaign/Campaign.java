@@ -1,6 +1,5 @@
 package com.sickjumps.rollinish.campaign;
 
-import com.sickjumps.rollinish.beans.Participant;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
