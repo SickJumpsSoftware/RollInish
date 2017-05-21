@@ -1,6 +1,6 @@
-package com.sickjumps.rollinish.gui;
+package com.sickjumps.rollinish.campaign;
 
-import com.sickjumps.rollinish.beans.Campaign;
+import com.sickjumps.rollinish.campaign.Campaign;
 import java.io.FileOutputStream;
 
 /**
