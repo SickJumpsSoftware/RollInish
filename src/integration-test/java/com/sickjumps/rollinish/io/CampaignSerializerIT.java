@@ -1,6 +1,6 @@
 package com.sickjumps.rollinish.io;
 
-import com.sickjumps.rollinish.beans.Campaign;
+import com.sickjumps.rollinish.campaign.Campaign;
 import com.sickjumps.rollinish.io.CampaignSerializer;
 import java.io.File;
 import java.io.FileInputStream;

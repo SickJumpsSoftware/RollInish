@@ -18,7 +18,6 @@ package com.sickjumps.rollinish.gui;
 
 import javax.swing.AbstractListModel;
 import javax.swing.GroupLayout;
-import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;

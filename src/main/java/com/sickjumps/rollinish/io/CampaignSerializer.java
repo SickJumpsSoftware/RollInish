@@ -1,6 +1,6 @@
 package com.sickjumps.rollinish.io;
 
-import com.sickjumps.rollinish.beans.Campaign;
+import com.sickjumps.rollinish.campaign.Campaign;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
@@ -19,24 +19,21 @@ public class CampaignSerializer {
     private final static Logger LOGGER = LoggerFactory.getLogger(CampaignSerializer.class);
     
     /**
-     * Writes a campaign to an OutputStream. The supplied OutputStream is closed
-     * after writing.
+     * Writes a campaign to an OutputStream.
      * 
      * @param campaign The campaign to be saved
-     * @param os The stream to use to save the file, closed after use
+     * @param os The stream to use to save the file
      */
     public void save(Campaign campaign, OutputStream os) {
         try (ObjectOutputStream oos = new ObjectOutputStream(os)) {
             oos.writeObject(campaign);
-            os.close();
         } catch (IOException ioe) {
-            LOGGER.error("", ioe);
+            LOGGER.error("Error saving campaign", ioe);
         }
     }
     
     /**
-     * Reads a Campaign from an InputStream. The supplied InputStream is closed
-     * after reading.
+     * Reads a Campaign from an InputStream.
      * 
      * @param is The InputStream to read from
      * @return The loaded Campaign, or a default Campaign on error
@@ -46,11 +43,10 @@ public class CampaignSerializer {
         
         try (ObjectInputStream ois = new ObjectInputStream(is)) {
             c = (Campaign) ois.readObject();
-            is.close();
         } catch (ClassNotFoundException fnfe) {
-            LOGGER.error("", fnfe);
+            LOGGER.error("Unable to create Campaign object", fnfe);
         } catch (IOException ioe) {
-            LOGGER.error("", ioe);
+            LOGGER.error("Unable to read campaign from stream", ioe);
         }
         
         return c;

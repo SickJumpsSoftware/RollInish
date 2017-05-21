@@ -14,8 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.sickjumps.rollinish.gui;
+package com.sickjumps.rollinish.campaign;
 
+import com.sickjumps.rollinish.ApplicationConfiguration;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,18 +39,22 @@ import javax.swing.LayoutStyle;
 public class NewCampaignDialog extends JDialog {
     
     private CampaignInfoDTO nci;
+    private ApplicationConfiguration config;
 
     /**
      * Creates new form NewCampaignDialog
      */
-    public NewCampaignDialog(Frame parent, boolean modal) {
+    public NewCampaignDialog(Frame parent, boolean modal, ApplicationConfiguration config) {
         super(parent, modal);
 
         initComponents();
         
-        nci = new CampaignInfoDTO();
+        this.nci = new CampaignInfoDTO();
+        this.config = config;
         
         this.setTitle("Enter New Campaign Information");
+        
+        this.txtSaveDirectory.setText(config.getLastOrDefaultCampaignSaveDirectory().toString());
     }
     
     public CampaignInfoDTO getResult() {

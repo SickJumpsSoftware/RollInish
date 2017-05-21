@@ -1,0 +1,17 @@
+2017-05-20 19:27:29,403 INFO [main] c.s.r.RollInish [RollInish.java:26] Initializing application configuration
+2017-05-20 19:27:29,408 TRACE [main] c.s.r.ApplicationConfiguration [ApplicationConfiguration.java:34] configuration now contains: {campaign.last_played=, campaign.last_save_dir=, campaign.default_save_dir=, log_directory=logs/, campaign.last_active=}
+2017-05-20 19:27:29,408 TRACE [main] c.s.r.ApplicationConfiguration [ApplicationConfiguration.java:66] entering setDefaultCampaignSaveDirectory, directory = C:\Users\Nathan
+2017-05-20 19:27:29,412 ERROR [main] c.s.r.ApplicationConfiguration [ApplicationConfiguration.java:80] Error writing configuration, properties file may not match current configuration
+java.io.FileNotFoundException: file:\C:\Users\Nathan\Development\java\RollInish\build\resources\main\application.properties (The filename, directory name, or volume label syntax is incorrect)
+	at java.io.FileOutputStream.open0(Native Method) ~[na:1.8.0_66]
+	at java.io.FileOutputStream.open(FileOutputStream.java:270) ~[na:1.8.0_66]
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:213) ~[na:1.8.0_66]
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:101) ~[na:1.8.0_66]
+	at com.sickjumps.rollinish.ApplicationConfiguration.flushConfiguration(ApplicationConfiguration.java:77) [main/:na]
+	at com.sickjumps.rollinish.ApplicationConfiguration.setDefaultCampaignSaveDirectory(ApplicationConfiguration.java:70) [main/:na]
+	at com.sickjumps.rollinish.RollInish.main(RollInish.java:28) [main/:na]
+2017-05-20 19:27:29,413 TRACE [main] c.s.r.ApplicationConfiguration [ApplicationConfiguration.java:72] exiting setDefaultCampaignSaveDirectory
+2017-05-20 19:27:29,414 INFO [main] c.s.r.RollInish [RollInish.java:30] Initialize campaign manager
+2017-05-20 19:27:29,416 INFO [main] c.s.r.RollInish [RollInish.java:33] Start GUI
+2017-05-20 19:27:29,501 INFO [AWT-EventQueue-0] c.s.r.RollInish [RollInish.java:35] Show start dialog
+2017-05-20 19:27:50,468 INFO [AWT-EventQueue-0] c.s.r.RollInish [RollInish.java:38] Show main campaign frame
