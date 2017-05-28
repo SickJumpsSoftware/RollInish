@@ -16,26 +16,106 @@
  */
 package com.sickjumps.rollinish.gui;
 
-import javax.swing.AbstractListModel;
+import com.sickjumps.rollinish.character.Alignment;
+import com.sickjumps.rollinish.character.Participant;
+import com.sickjumps.rollinish.character.Size;
+import com.sickjumps.rollinish.character.Type;
+import com.sickjumps.rollinish.gui.table.MonsterTableModel;
+import com.sickjumps.rollinish.gui.table.ParticipantTableModel;
+import com.sickjumps.rollinish.log.CampaignLogManager;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
+import javax.swing.DefaultCellEditor;
 import javax.swing.GroupLayout;
-import javax.swing.JList;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.LayoutStyle;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
  * @author Nathan
  */
 public class EncounterPanel extends javax.swing.JPanel {
-
+    
+    private final CampaignLogManager manager;
+    private ParticipantTableModel activeModel;
+    private ParticipantTableModel availableModel;
+    private MonsterTableModel monsterModel;
+    
     /**
      * Creates new form EncounterPanel
      */
     public EncounterPanel() {
         initComponents();
+        this.manager = CampaignLogManager.instance();
+        
+        setMonsterTableCellEditorsAndRenderers();
+    }
+    
+    public void setPlayerTableModel(ParticipantTableModel model) {
+        this.tblAvailable.setModel(model);
+        this.availableModel = model;
+    }
+    
+    public void setMonsterTableModel(MonsterTableModel model) {
+        this.tblMonsters.setModel(model);
+        this.monsterModel = model;
+    }
+    
+    public void setActiveTableModel(ParticipantTableModel model) {
+        this.tblActive.setModel(model);
+        this.activeModel = model;
+    }
+    
+    private void setMonsterTableCellEditorsAndRenderers() {
+        TableColumnModel monsterColumnModel = this.tblMonsters.getColumnModel();
+        
+        setSizeCellEditor(monsterColumnModel.getColumn(1));
+        setTypeCellEditor(monsterColumnModel.getColumn(2));
+        setAlignmentCellEditor(monsterColumnModel.getColumn(4));
+        
+        setEnumCellRenderer(monsterColumnModel.getColumn(1));
+        setEnumCellRenderer(monsterColumnModel.getColumn(2));
+        setEnumCellRenderer(monsterColumnModel.getColumn(4));
+    }
+    
+    private void setAlignmentCellEditor(TableColumn column) {
+        JComboBox<String> comboBox = new JComboBox<>();
+        for (Alignment a : Alignment.values()) {
+            comboBox.addItem(a.toString());
+        }
+        column.setCellEditor(new DefaultCellEditor(comboBox));
+    }
+    
+    private void setSizeCellEditor(TableColumn column) {
+        JComboBox<String> comboBox = new JComboBox<>();
+        for (Size s : Size.values()) {
+            comboBox.addItem(s.toString());
+        }
+        column.setCellEditor(new DefaultCellEditor(comboBox));
+    }
+    
+    private void setTypeCellEditor(TableColumn column) {
+        JComboBox<String> comboBox = new JComboBox<>();
+        for (Type t : Type.values()) {
+            comboBox.addItem(t.toString());
+        }
+        column.setCellEditor(new DefaultCellEditor(comboBox));
+    }
+    
+    private void setEnumCellRenderer(TableColumn column) {
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+        renderer.setToolTipText("Click for options");
+        column.setCellRenderer(renderer);
     }
 
     /**
@@ -54,52 +134,98 @@ public class EncounterPanel extends javax.swing.JPanel {
         tabMonsterPane = new JTabbedPane();
         vptMonsters = new JScrollPane();
         tblMonsters = new JTable();
+        jPanel1 = new JPanel();
+        btnAddPlayer = new JButton();
+        btnRemovePlayer = new JButton();
+        jPanel2 = new JPanel();
+        btnRemoveParticipant = new JButton();
+        btnNextTurn = new JButton();
 
-        tblAvailable.setModel(new DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        tblAvailable.setModel(new ParticipantTableModel());
         tblAvailable.setFillsViewportHeight(true);
         vptAvailable.setViewportView(tblAvailable);
 
-        tblActive.setModel(new DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        tblActive.setModel(new ParticipantTableModel());
         tblActive.setFillsViewportHeight(true);
         vptActive.setViewportView(tblActive);
 
         tabMonsterPane.setName("monsters"); // NOI18N
 
-        tblMonsters.setModel(new DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        tblMonsters.setModel(new MonsterTableModel());
         tblMonsters.setFillsViewportHeight(true);
         vptMonsters.setViewportView(tblMonsters);
 
         tabMonsterPane.addTab("tab1", vptMonsters);
+
+        jPanel1.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+
+        btnAddPlayer.setText("Add Player");
+        btnAddPlayer.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                btnAddPlayerActionPerformed(evt);
+            }
+        });
+
+        btnRemovePlayer.setText("Remove Player");
+        btnRemovePlayer.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                btnRemovePlayerActionPerformed(evt);
+            }
+        });
+
+        GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAddPlayer, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnRemovePlayer, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnAddPlayer, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnRemovePlayer, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel2.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+
+        btnRemoveParticipant.setText("Remove Player");
+        btnRemoveParticipant.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                btnRemoveParticipantActionPerformed(evt);
+            }
+        });
+
+        btnNextTurn.setText("Next Turn");
+        btnNextTurn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                btnNextTurnActionPerformed(evt);
+            }
+        });
+
+        GroupLayout jPanel2Layout = new GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(btnRemoveParticipant, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnNextTurn, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnRemoveParticipant, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnNextTurn, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
@@ -107,27 +233,55 @@ public class EncounterPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(tabMonsterPane)
+                    .addComponent(tabMonsterPane, GroupLayout.DEFAULT_SIZE, 1175, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(vptAvailable, GroupLayout.PREFERRED_SIZE, 467, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(vptActive, GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)))
+                        .addComponent(vptAvailable, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(vptActive, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(vptActive)
-                    .addComponent(vptAvailable, GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE))
+                    .addComponent(vptAvailable, GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
+                    .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(tabMonsterPane, GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnAddPlayerActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnAddPlayerActionPerformed
+        this.manager.publish("Added available player.");
+    }//GEN-LAST:event_btnAddPlayerActionPerformed
+
+    private void btnRemovePlayerActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnRemovePlayerActionPerformed
+        this.manager.publish("Removed available player.");
+    }//GEN-LAST:event_btnRemovePlayerActionPerformed
+
+    private void btnRemoveParticipantActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnRemoveParticipantActionPerformed
+        this.manager.publish("Removed active player.");
+    }//GEN-LAST:event_btnRemoveParticipantActionPerformed
+
+    private void btnNextTurnActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnNextTurnActionPerformed
+        this.manager.publish("Advanced to next player.");
+    }//GEN-LAST:event_btnNextTurnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private JButton btnAddPlayer;
+    private JButton btnNextTurn;
+    private JButton btnRemoveParticipant;
+    private JButton btnRemovePlayer;
+    private JPanel jPanel1;
+    private JPanel jPanel2;
     private JTabbedPane tabMonsterPane;
     private JTable tblActive;
     private JTable tblAvailable;

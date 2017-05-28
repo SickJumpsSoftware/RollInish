@@ -17,22 +17,46 @@
 package com.sickjumps.rollinish.gui;
 
 import com.sickjumps.rollinish.campaign.Campaign;
+import com.sickjumps.rollinish.log.CampaignLogEvent;
+import com.sickjumps.rollinish.log.CampaignLogManager;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JFrame;
-import javax.swing.JToolBar;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
+import com.sickjumps.rollinish.log.CampaignLogEventListener;
 
 /**
  *
  * @author Nathan
  */
-public class CampaignFrame extends JFrame {
+public class CampaignFrame extends JFrame implements CampaignLogEventListener {
+    
+    private final CampaignLogManager manager;
+    private final EncounterPanelFactory panelFactory;
 
     /**
      * Creates new form CampaignFrame
      */
-    public CampaignFrame(Campaign campaign) {
+    public CampaignFrame(Campaign campaign, CampaignLogManager manager, EncounterPanelFactory panelFactory) {
+        this.panelFactory = panelFactory;
+        this.setTitle("RollInish");
+        
         initComponents();
+        
+        this.manager = manager;
+        this.manager.addTurnLogEventListener(this);
+    }
+    
+    @Override
+    public void onMessageLogged(CampaignLogEvent e) {
+        this.txtTurnLog.append(e.getMessage());
     }
 
     /**
@@ -44,27 +68,60 @@ public class CampaignFrame extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jToolBar1 = new JToolBar();
+        jScrollPane1 = new JScrollPane();
+        txtTurnLog = new JTextArea();
+        pnlEncounterPanel = panelFactory.buildPanel();
+        lblAvailable = new JLabel();
+        lblActive = new JLabel();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        jToolBar1.setRollover(true);
+        txtTurnLog.setColumns(20);
+        txtTurnLog.setRows(5);
+        jScrollPane1.setViewportView(txtTurnLog);
+
+        pnlEncounterPanel.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+
+        lblAvailable.setFont(new Font("Dialog", 1, 24)); // NOI18N
+        lblAvailable.setText("Available Players");
+
+        lblActive.setFont(new Font("Dialog", 1, 24)); // NOI18N
+        lblActive.setText("Active Players");
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, GroupLayout.DEFAULT_SIZE, 1004, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblAvailable)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 643, Short.MAX_VALUE)
+                        .addComponent(lblActive))
+                    .addComponent(pnlEncounterPanel, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 745, Short.MAX_VALUE)
-                .addComponent(jToolBar1, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblActive)
+                    .addComponent(lblAvailable))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlEncounterPanel, GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private JToolBar jToolBar1;
+    private JScrollPane jScrollPane1;
+    private JLabel lblActive;
+    private JLabel lblAvailable;
+    private JPanel pnlEncounterPanel;
+    private JTextArea txtTurnLog;
     // End of variables declaration//GEN-END:variables
 }
