@@ -75,6 +75,4 @@ public class ApplicationConfiguration {
         
         logger.trace("exiting setLastCampaignName");
     }
-    
-    
 }

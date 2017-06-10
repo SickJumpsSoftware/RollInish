@@ -15,15 +15,35 @@ public class Monster extends Participant {
     private int xp;
     private String source;
     private String tag;
-    
-    public Monster(int dexMod, String name, Type type, String tag, Alignment alignment, String challenge, int xp, String source) {
-        super(name, "DM", dexMod);
+
+    public Monster(String name, Size size, Type type, Alignment alignment, String challenge, int xp, String source, String tag) {
+        super(name, "DM", 0);
+        this.size = size;
         this.type = type;
-        this.tag = tag;
         this.alignment = alignment;
         this.challenge = challenge;
         this.xp = xp;
         this.source = source;
+        this.tag = tag;
+    }
+
+    public Monster(String characterName, int dexMod) {
+        super(characterName, "DM", dexMod);
+        this.size = Size.GARGANTUAN;
+        this.type = Type.ABERRATION;
+        this.alignment = Alignment.CE;
+        this.challenge = "";
+        this.xp = 0;
+        this.source = "";
+        this.tag = "";
+    }
+    
+    public String getName() {
+        return super.getCharacterName();
+    }
+    
+    public void setName(String name) {
+        super.setCharacterName(name);
     }
 
     public Size getSize() {
@@ -80,5 +100,11 @@ public class Monster extends Participant {
 
     public void setSource(String source) {
         this.source = source;
+    }
+
+    @Override
+    public String toString() {
+        String prefix = super.toString();
+        return prefix + " || Monster{" + "size=" + size + ", type=" + type + ", alignment=" + alignment + ", challenge=" + challenge + ", xp=" + xp + ", source=" + source + ", tag=" + tag + '}';
     }
 }

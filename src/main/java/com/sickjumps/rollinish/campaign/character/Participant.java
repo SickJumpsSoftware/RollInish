@@ -1,5 +1,6 @@
 package com.sickjumps.rollinish.campaign.character;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -7,7 +8,7 @@ import java.util.Objects;
  * @author Nathan
  */
 
-public class Participant {
+public class Participant implements Serializable {
     private String characterName;
     private String playerName;
     private int dexMod;

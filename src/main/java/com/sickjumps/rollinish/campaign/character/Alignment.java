@@ -29,9 +29,11 @@ public enum Alignment {
     CN("Chaotic Neutral"),
     LE("Lawful Evil"),
     NE("Neutral Evil"),
-    CE("Chaotic Evil");
+    CE("Chaotic Evil"),
+    UN("Unaligned");
     
-    private String alignment;
+    private final String alignment;
+    
     private Alignment(String alignment) {
         this.alignment = alignment;
     }
@@ -42,16 +44,17 @@ public enum Alignment {
     }
     
     public static Alignment fromString(String alignment) {
-        if (alignment.equalsIgnoreCase("lawful good")) return LG;
-        if (alignment.equalsIgnoreCase("neutral good")) return NG;
-        if (alignment.equalsIgnoreCase("chaotic good")) return CG;
-        if (alignment.equalsIgnoreCase("lawful neutral")) return LN;
-        if (alignment.equalsIgnoreCase("true neutral")) return NN;
-        if (alignment.equalsIgnoreCase("chaotic neutral")) return CN;
-        if (alignment.equalsIgnoreCase("lawful evil")) return LE;
-        if (alignment.equalsIgnoreCase("true evil")) return NE;
-        if (alignment.equalsIgnoreCase("chaotic evil")) return CE;
+        if (alignment.equalsIgnoreCase("lg")) return LG;
+        if (alignment.equalsIgnoreCase("ng")) return NG;
+        if (alignment.equalsIgnoreCase("cg")) return CG;
+        if (alignment.equalsIgnoreCase("ln")) return LN;
+        if (alignment.equalsIgnoreCase("n")) return NN;
+        if (alignment.equalsIgnoreCase("cn")) return CN;
+        if (alignment.equalsIgnoreCase("le")) return LE;
+        if (alignment.equalsIgnoreCase("ne")) return NE;
+        if (alignment.equalsIgnoreCase("ce")) return CE;
+        if (alignment.equalsIgnoreCase("unaligned")) return UN;
         
-        throw new IllegalArgumentException(String.format("Illegal alignment string: {}", alignment));
+        throw new IllegalArgumentException(String.format("Illegal alignment string: %s", alignment));
     }
 }
