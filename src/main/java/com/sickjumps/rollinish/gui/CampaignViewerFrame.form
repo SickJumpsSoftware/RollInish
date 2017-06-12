@@ -253,6 +253,9 @@
           </SubComponents>
         </Container>
         <Container class="javax.swing.JTabbedPane" name="tabEncounters">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="PaneCreator.createEncounterPane(this.campaign.getEncounters())"/>
+          </AuxValues>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
         </Container>

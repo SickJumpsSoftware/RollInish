@@ -1,5 +1,9 @@
 package com.sickjumps.rollinish.campaign.character;
 
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -8,7 +12,7 @@ import java.util.Objects;
  * @author Nathan
  */
 
-public class Participant implements Serializable {
+public class Participant implements Serializable, Transferable {
     private String characterName;
     private String playerName;
     private int dexMod;
@@ -93,5 +97,20 @@ public class Participant implements Serializable {
     @Override
     public String toString() {
         return "Participant{" + "characterName=" + characterName + ", playerName=" + playerName + ", dexMod=" + dexMod + ", initiative=" + initiative + '}';
+    }
+
+    @Override
+    public DataFlavor[] getTransferDataFlavors() {
+        return new DataFlavor[] { new DataFlavor(Participant.class, "Participant") };
+    }
+
+    @Override
+    public boolean isDataFlavorSupported(DataFlavor flavor) {
+        return true;
+    }
+
+    @Override
+    public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException, IOException {
+        return this;
     }
 }

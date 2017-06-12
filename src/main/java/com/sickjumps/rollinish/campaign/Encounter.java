@@ -1,6 +1,8 @@
 package com.sickjumps.rollinish.campaign;
 
 import com.sickjumps.rollinish.campaign.character.Participant;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,7 +10,7 @@ import java.util.List;
  * @author Nathan
  */
 
-public class Encounter {
+public class Encounter implements Serializable {
 
     private List<Participant> available;
     private List<Participant> active;
@@ -16,6 +18,8 @@ public class Encounter {
 
     public Encounter(String encounterName) {
         this.encounterName = encounterName;
+        this.available = new ArrayList<>();
+        this.active = new ArrayList<>();
     }
     
     public void addAvailablePlayer(Participant p) {
@@ -30,6 +34,10 @@ public class Encounter {
         this.available = available;
     }
 
+    public void addActivePlayer(Participant p) {
+        this.active.add(p);
+    }
+    
     public List<Participant> getActive() {
         return active;
     }

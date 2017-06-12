@@ -64,7 +64,7 @@ public class PlayerTableAndMonsterPaneTest {
         JPanel rightPanel = new JPanel();
         JTable table = new JTable(new PlayerTableModel(players));
         table.setDragEnabled(true);
-        table.setTransferHandler(new MonsterTransferHandler());
+        table.setTransferHandler(new ActiveTransferHandler());
         table.setFillsViewportHeight(true);
         JScrollPane scrollPane = new JScrollPane(table);
         

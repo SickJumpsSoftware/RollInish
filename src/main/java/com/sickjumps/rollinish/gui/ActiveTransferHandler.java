@@ -5,10 +5,11 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
-import java.util.List;
 import javax.activation.ActivationDataFlavor;
+import javax.swing.JComponent;
 import javax.swing.JTable;
 import javax.swing.TransferHandler;
+import javax.swing.table.TableModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,12 +28,34 @@ public class ActiveTransferHandler extends TransferHandler {
     }
     
     @Override
+    public int getSourceActions(JComponent c) {
+        return COPY;
+    }
+    
+    @Override
+    protected Transferable createTransferable(JComponent c) {
+        JTable source = (JTable) c;
+        
+        TableModel model = source.getModel();
+        
+        if (model instanceof PlayerTableModel) {
+            PlayerTableModel transferModel = (PlayerTableModel) model;
+            
+            return transferModel.getRow(source.getSelectedRow());
+        } else if (model instanceof MonsterTableModel) {
+            MonsterTableModel transferModel = (MonsterTableModel) model;
+            
+            return transferModel.getRow(source.getSelectedRow());
+        }
+        
+        return null;
+    }
+    
+    @Override
     public boolean canImport(TransferHandler.TransferSupport info) {
         if (!info.isDrop()) return false;
         
-        if (!(info.getComponent() instanceof JTable)) return false;
-        
-        return true;
+        return info.getComponent() instanceof JTable;
     }
     
     @Override
@@ -43,12 +66,7 @@ public class ActiveTransferHandler extends TransferHandler {
             JTable table = (JTable) info.getComponent();
             PlayerTableModel model = (PlayerTableModel) table.getModel();
             
-            Transferable t = info.getTransferable();
-            List<Participant> players = (List<Participant>)t.getTransferData(localDataFlavor);
-            
-            players.stream().forEach((p) -> {
-                model.addRow(p);
-            });
+            model.addRow((Participant) info.getTransferable().getTransferData(localDataFlavor));
             
             return true;
         } catch (UnsupportedFlavorException ufe) {

@@ -52,7 +52,7 @@ public class MonsterPaneTest extends JPanel {
             JTable table = new JTable(new MonsterTableModel(monstersByCR.get(cr)));
             
             table.setDragEnabled(true);
-            table.setTransferHandler(new MonsterTransferHandler());
+            table.setTransferHandler(new ActiveTransferHandler());
             
             this.jTabbedPane1.addTab(cr, new JScrollPane(table));
         });

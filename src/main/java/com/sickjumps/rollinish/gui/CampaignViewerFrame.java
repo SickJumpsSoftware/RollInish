@@ -6,6 +6,7 @@
 package com.sickjumps.rollinish.gui;
 
 import com.sickjumps.rollinish.campaign.Campaign;
+import com.sickjumps.rollinish.campaign.Encounter;
 import com.sickjumps.rollinish.campaign.character.Monster;
 import java.awt.Color;
 import java.util.List;
@@ -30,22 +31,17 @@ import javax.swing.border.LineBorder;
 public class CampaignViewerFrame extends javax.swing.JFrame {
 
     private final List<Monster> monsterData;
+    private final Campaign campaign;
     
     /**
      * Creates new form CampaignViewerFrame
      */
     public CampaignViewerFrame(Campaign c, List<Monster> monsterData) {
         this.monsterData = monsterData;
+        this.campaign = c;
         
         initComponents();
-        
-        insertEncounterData();
     }
-        
-    private void insertEncounterData() {
-        
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -65,7 +61,7 @@ public class CampaignViewerFrame extends javax.swing.JFrame {
         btnRemoveActive = new JButton();
         btnNextTurn = new JButton();
         btnAddMonster = new JButton();
-        tabEncounters = new JTabbedPane();
+        tabEncounters = PaneCreator.createEncounterPane(this.campaign.getEncounters());
         tabMonsterTable = PaneCreator.createMonsterPane(monsterData);
         jMenuBar1 = new JMenuBar();
         mnuFile = new JMenu();
