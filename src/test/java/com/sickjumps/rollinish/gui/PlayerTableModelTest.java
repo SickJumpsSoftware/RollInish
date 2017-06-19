@@ -1,11 +1,12 @@
 package com.sickjumps.rollinish.gui;
 
-import com.sickjumps.rollinish.gui.table.PlayerTableModel;
+import ca.odell.glazedlists.EventList;
+import ca.odell.glazedlists.GlazedLists;
 import com.sickjumps.rollinish.campaign.character.Participant;
+import com.sickjumps.rollinish.gui.table.PlayerTableFormat;
+import com.sickjumps.rollinish.gui.table.PlayerTableModel;
 import java.awt.Dimension;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -18,7 +19,7 @@ import javax.swing.JTable;
 
 public class PlayerTableModelTest {
 
-    private final static List<Participant> players = new ArrayList<>(
+    private final static EventList<Participant> players = GlazedLists.eventList(
         Arrays.asList(
             new Participant[] {
                 new Participant("test name", "nathan", 3),
@@ -37,7 +38,7 @@ public class PlayerTableModelTest {
         JScrollPane jsp = new JScrollPane();
         JTable table = new JTable();
         
-        table.setModel(new PlayerTableModel(players));
+        table.setModel(new PlayerTableModel(players, new PlayerTableFormat()));
         table.setDragEnabled(true);
         table.setFillsViewportHeight(true);
         table.setMinimumSize(new Dimension(500, 400));

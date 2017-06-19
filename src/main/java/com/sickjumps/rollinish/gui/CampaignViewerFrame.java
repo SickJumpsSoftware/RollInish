@@ -8,8 +8,9 @@ package com.sickjumps.rollinish.gui;
 import com.sickjumps.rollinish.campaign.Campaign;
 import com.sickjumps.rollinish.campaign.character.Monster;
 import com.sickjumps.rollinish.campaign.character.Participant;
-import com.sickjumps.rollinish.gui.table.AvailablePlayerTableModel;
+import com.sickjumps.rollinish.gui.table.PlayerTableFormat;
 import com.sickjumps.rollinish.gui.table.PlayerTableModel;
+import com.sickjumps.rollinish.gui.table.RowObjectTableModel;
 import com.sickjumps.rollinish.gui.transfer.ExportTransferHandler;
 import java.awt.Color;
 import java.awt.Frame;
@@ -57,8 +58,6 @@ public final class CampaignViewerFrame extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new JScrollPane();
-        campaignTextLog = new JTextArea();
         jPanel1 = new JPanel();
         leftButtonPanel = new JPanel();
         btnAddAvailable = new JButton();
@@ -67,6 +66,7 @@ public final class CampaignViewerFrame extends JFrame {
         btnRemoveActive = new JButton();
         btnNextTurn = new JButton();
         btnAddMonster = new JButton();
+        btnClearTable = new JButton();
         tabMonsterTable = PaneCreator.createMonsterPane(monsterData);
         jScrollPane2 = new JScrollPane();
         tblAvailable = new JTable();
@@ -74,11 +74,6 @@ public final class CampaignViewerFrame extends JFrame {
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(Frame.MAXIMIZED_BOTH);
-
-        campaignTextLog.setEditable(false);
-        campaignTextLog.setColumns(20);
-        campaignTextLog.setRows(5);
-        jScrollPane1.setViewportView(campaignTextLog);
 
         jPanel1.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 
@@ -92,6 +87,11 @@ public final class CampaignViewerFrame extends JFrame {
         });
 
         btnRemoveAvailable.setText("Remove Player");
+        btnRemoveAvailable.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                btnRemoveAvailableActionPerformed(evt);
+            }
+        });
 
         GroupLayout leftButtonPanelLayout = new GroupLayout(leftButtonPanel);
         leftButtonPanel.setLayout(leftButtonPanelLayout);
@@ -106,9 +106,9 @@ public final class CampaignViewerFrame extends JFrame {
         leftButtonPanelLayout.setVerticalGroup(leftButtonPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(leftButtonPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnAddAvailable)
-                .addGap(65, 65, 65)
-                .addComponent(btnRemoveAvailable)
+                .addComponent(btnAddAvailable, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnRemoveAvailable, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -120,6 +120,8 @@ public final class CampaignViewerFrame extends JFrame {
 
         btnAddMonster.setText("Add Custom Enemy");
 
+        btnClearTable.setText("Clear Encounter");
+
         GroupLayout rightButtonPanelLayout = new GroupLayout(rightButtonPanel);
         rightButtonPanel.setLayout(rightButtonPanelLayout);
         rightButtonPanelLayout.setHorizontalGroup(rightButtonPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -128,9 +130,10 @@ public final class CampaignViewerFrame extends JFrame {
                 .addGroup(rightButtonPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(btnRemoveActive, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnNextTurn, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(rightButtonPanelLayout.createSequentialGroup()
-                        .addComponent(btnAddMonster)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(btnClearTable, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(GroupLayout.Alignment.TRAILING, rightButtonPanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnAddMonster)))
                 .addContainerGap())
         );
         rightButtonPanelLayout.setVerticalGroup(rightButtonPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -139,12 +142,14 @@ public final class CampaignViewerFrame extends JFrame {
                 .addComponent(btnRemoveActive)
                 .addGap(18, 18, 18)
                 .addComponent(btnNextTurn)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 332, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnClearTable)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnAddMonster)
-                .addGap(163, 163, 163))
+                .addGap(182, 182, 182))
         );
 
-        tblAvailable.setModel(new AvailablePlayerTableModel(campaign.getAvailable()));
+        tblAvailable.setModel(new PlayerTableModel(campaign.getAvailable(), new PlayerTableFormat()));
         tblAvailable.setDragEnabled(true);
         tblAvailable.setFillsViewportHeight(true);
         tblAvailable.setPreferredSize(this.tabMonsterTable.getPreferredSize());
@@ -175,7 +180,7 @@ public final class CampaignViewerFrame extends JFrame {
                     .addComponent(rightButtonPanel, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
                             .addComponent(tabEncounterPane))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tabMonsterTable, GroupLayout.PREFERRED_SIZE, 212, GroupLayout.PREFERRED_SIZE)))
@@ -187,17 +192,13 @@ public final class CampaignViewerFrame extends JFrame {
         layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
+                .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 161, GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -210,19 +211,23 @@ public final class CampaignViewerFrame extends JFrame {
         
         if (p != null) {
             this.campaign.addAvailablePlayer(p);
-            ((PlayerTableModel)this.tblAvailable.getModel()).addRow(p);
         }
     }//GEN-LAST:event_btnAddAvailableActionPerformed
+
+    private void btnRemoveAvailableActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnRemoveAvailableActionPerformed
+        Participant p = (Participant)((RowObjectTableModel)this.tblAvailable.getModel()).getRow(this.tblAvailable.getSelectedRow());
+        
+        this.campaign.removeAvailablePlayer(p);
+    }//GEN-LAST:event_btnRemoveAvailableActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton btnAddAvailable;
     private JButton btnAddMonster;
+    private JButton btnClearTable;
     private JButton btnNextTurn;
     private JButton btnRemoveActive;
     private JButton btnRemoveAvailable;
-    private JTextArea campaignTextLog;
     private JPanel jPanel1;
-    private JScrollPane jScrollPane1;
     private JScrollPane jScrollPane2;
     private JPanel leftButtonPanel;
     private JPanel rightButtonPanel;

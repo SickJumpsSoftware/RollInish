@@ -1,5 +1,7 @@
 package com.sickjumps.rollinish.campaign.io;
 
+import ca.odell.glazedlists.BasicEventList;
+import ca.odell.glazedlists.EventList;
 import com.opencsv.CSVParser;
 import com.sickjumps.rollinish.campaign.character.Alignment;
 import com.sickjumps.rollinish.campaign.character.Monster;
@@ -22,8 +24,8 @@ public class MonsterDataParser {
 
     private final static Logger logger = LoggerFactory.getLogger(MonsterDataParser.class);
 
-    public static List<Monster> getMonsterData(InputStream csvData) {
-        ArrayList<Monster> monsterData = new ArrayList<>();
+    public static EventList<Monster> getMonsterData(InputStream csvData) {
+        EventList<Monster> monsterData = new BasicEventList<>();
         CSVParser parser = new CSVParser();
 
         try (BufferedReader br = new BufferedReader(new InputStreamReader(csvData))) {

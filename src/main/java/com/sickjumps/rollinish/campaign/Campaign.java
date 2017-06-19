@@ -1,9 +1,10 @@
 package com.sickjumps.rollinish.campaign;
 
+import ca.odell.glazedlists.BasicEventList;
+import ca.odell.glazedlists.EventList;
+import ca.odell.glazedlists.GlazedLists;
 import com.sickjumps.rollinish.campaign.character.Participant;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -13,36 +14,46 @@ import java.util.List;
 
 public class Campaign implements Serializable {
     private final String campaignName;
-    private final List<Encounter> encounters;
-    private List<Participant> available;
+    private EventList<Encounter> encounters;
+    private EventList<Participant> available;
     
     public Campaign(String campaignName) {
         this.campaignName = campaignName;
-        this.available = new ArrayList<>();
-        this.encounters = new ArrayList<>();
-    }
-    
-    public void addListener() {
         
+        this.encounters = GlazedLists.threadSafeList(new BasicEventList<>());
+        
+        this.available = GlazedLists.threadSafeList(new BasicEventList<>());
     }
 
     public String getCampaignName() {
         return campaignName;
     }
 
-    public List<Encounter> getEncounters() {
+    public EventList<Encounter> getEncounters() {
         return encounters;
     }
+    
+    public void setEncounters(EventList<Encounter> encounters) {
+        this.encounters = encounters;
+    }
+    
+    public void addEncounter(Encounter e) {
+        this.encounters.add(e);
+    }
 
-    public void setAvailable(List<Participant> available) {
+    public void setAvailable(EventList<Participant> available) {
         this.available = available;
     }
 
-    public List<Participant> getAvailable() {
+    public EventList<Participant> getAvailable() {
         return available;
     }
 
     public void addAvailablePlayer(Participant p) {
         this.available.add(p);
+    }
+    
+    public void removeAvailablePlayer(Participant p) {
+        this.available.remove(p);
     }
 }

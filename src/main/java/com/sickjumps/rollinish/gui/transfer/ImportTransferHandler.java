@@ -1,17 +1,13 @@
 package com.sickjumps.rollinish.gui.transfer;
 
 import com.sickjumps.rollinish.campaign.character.Participant;
-import com.sickjumps.rollinish.gui.table.MonsterTableModel;
 import com.sickjumps.rollinish.gui.table.PlayerTableModel;
 import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 import javax.activation.ActivationDataFlavor;
-import javax.swing.JComponent;
 import javax.swing.JTable;
 import javax.swing.TransferHandler;
-import javax.swing.table.TableModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

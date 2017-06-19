@@ -3,7 +3,6 @@ package com.sickjumps.rollinish.gui.transfer;
 import com.sickjumps.rollinish.campaign.character.Participant;
 import com.sickjumps.rollinish.gui.table.MonsterTableModel;
 import com.sickjumps.rollinish.gui.table.PlayerTableModel;
-import com.sickjumps.rollinish.gui.table.RowObjectTableModel;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import javax.activation.ActivationDataFlavor;
@@ -39,6 +38,12 @@ public class ExportTransferHandler extends TransferHandler {
         
         TableModel model = source.getModel();
         
-        return ((RowObjectTableModel<Participant>) model).getRow(source.getSelectedRow());
+        if (model instanceof PlayerTableModel) {
+            return ((PlayerTableModel) model).getRow(source.getSelectedRow());
+        } else if (model instanceof MonsterTableModel) {
+            return ((MonsterTableModel)model).getRow(source.getSelectedRow());
+        }
+        
+        return null;
     }
 }
