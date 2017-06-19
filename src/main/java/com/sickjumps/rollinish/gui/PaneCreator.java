@@ -1,17 +1,18 @@
 package com.sickjumps.rollinish.gui;
 
-import com.sickjumps.rollinish.campaign.Encounter;
+import com.sickjumps.rollinish.gui.table.PlayerTableModel;
+import com.sickjumps.rollinish.gui.table.MonsterTableModel;
+import com.sickjumps.rollinish.campaign.Campaign;
+import com.sickjumps.rollinish.gui.transfer.ImportTransferHandler;
 import com.sickjumps.rollinish.campaign.character.Monster;
-import java.awt.FlowLayout;
+import com.sickjumps.rollinish.gui.transfer.ExportTransferHandler;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
-import javax.swing.TransferHandler;
 
 /**
  *
@@ -35,7 +36,7 @@ class PaneCreator {
         monstersByCR.keySet().stream().forEach((String cr) -> {
             JTable table = new JTable(new MonsterTableModel(monstersByCR.get(cr)));
             table.setDragEnabled(true);
-            table.setTransferHandler(new ActiveTransferHandler());
+            table.setTransferHandler(new ExportTransferHandler());
             monsterPane.addTab(cr, new JScrollPane(table));
         });
     }
@@ -48,36 +49,21 @@ class PaneCreator {
         });
     }
 
-    static JTabbedPane createEncounterPane(List<Encounter> encounters) {
-        JTabbedPane encounterPane = new JTabbedPane();
+    static JTabbedPane createEncounterTabbedPane(Campaign c) {
+        JTabbedPane tabbedPane = new JTabbedPane();
         
-        encounters.stream().forEach((e) -> {
-            JPanel panel = new JPanel();
-            JScrollPane leftScrollPane = new JScrollPane();
-            JScrollPane rightScrollPane = new JScrollPane();
-            
-            JTable availableTable = new JTable(new PlayerTableModel(e.getAvailable()));
+        c.getEncounters().stream().forEach((e) -> {
             JTable activeTable = new JTable(new PlayerTableModel(e.getActive()));
+            JScrollPane scrollPane = new JScrollPane(activeTable);
             
-            availableTable.setFillsViewportHeight(true);
             activeTable.setFillsViewportHeight(true);
+            activeTable.setTransferHandler(new ImportTransferHandler());
+            activeTable.setDragEnabled(false);
+            activeTable.setAutoCreateRowSorter(true);
             
-            leftScrollPane.setViewportView(availableTable);
-            rightScrollPane.setViewportView(activeTable);
-            
-            availableTable.setTransferHandler(new ActiveTransferHandler());
-            activeTable.setTransferHandler(new ActiveTransferHandler());
-            
-            availableTable.setDragEnabled(true);
-            activeTable.setDragEnabled(true);
-            
-            panel.setLayout(new FlowLayout());
-            panel.add(leftScrollPane);
-            panel.add(rightScrollPane);
-            
-            encounterPane.addTab(e.getEncounterName(), panel);
+            tabbedPane.addTab(e.getEncounterName(), scrollPane);
         });
         
-        return encounterPane;
+        return tabbedPane;
     }
 }

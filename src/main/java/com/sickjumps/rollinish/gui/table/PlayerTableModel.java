@@ -1,4 +1,4 @@
-package com.sickjumps.rollinish.gui;
+package com.sickjumps.rollinish.gui.table;
 
 import com.sickjumps.rollinish.campaign.character.Participant;
 import java.util.ArrayList;
@@ -55,7 +55,7 @@ public class PlayerTableModel extends AbstractTableModel implements RowObjectTab
     public void setValueAt(Object o, int rowIndex, int columnIndex) {
         if (!this.isCellEditable(rowIndex, columnIndex)) return;
         
-        int value = Integer.valueOf((String)o);
+        int value = (int) o;
         this.players.get(rowIndex).setInitiative(value);
         super.fireTableDataChanged();
     }
@@ -63,6 +63,19 @@ public class PlayerTableModel extends AbstractTableModel implements RowObjectTab
     @Override
     public String getColumnName(int columnIndex) {
         return this.headers.get(columnIndex);
+    }
+    
+    @Override
+    public Class<?> getColumnClass(int columnIndex) {
+        switch (columnIndex) {
+            case 0:
+            case 1:
+                return String.class;
+            case 2:
+                return Integer.class;
+            default:
+                throw new IndexOutOfBoundsException("Column index out of bounds");
+        }
     }
 
     @Override

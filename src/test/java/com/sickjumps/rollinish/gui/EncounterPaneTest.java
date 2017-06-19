@@ -1,12 +1,14 @@
 package com.sickjumps.rollinish.gui;
 
+import com.sickjumps.rollinish.campaign.Campaign;
 import com.sickjumps.rollinish.campaign.Encounter;
 import com.sickjumps.rollinish.campaign.character.Participant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JFrame;
-import javax.swing.JScrollPane;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 
 /**
  *
@@ -14,6 +16,8 @@ import javax.swing.JScrollPane;
  */
 
 public class EncounterPaneTest {
+    
+    private final static Campaign c = new Campaign("test campaign");
 
     private final static List<Encounter> encounters = new ArrayList<>(
         Arrays.asList( 
@@ -40,20 +44,19 @@ public class EncounterPaneTest {
     private final static List<Participant> activePlayers = new ArrayList<>();
     
     static {
-        encounters.stream().map((e) -> {
-            e.setActive(activePlayers);
-            return e;
-        }).forEach((e) -> {
-            e.setAvailable(availablePlayers);
-        });
+        c.setAvailable(availablePlayers);
+        encounters.stream().forEach(e -> e.setActive(activePlayers));
     }
     
     public static void main(String... args) {
         JFrame frame = new JFrame("Encounter pane test");
-        JScrollPane scrollPane = new JScrollPane();
+        JPanel panel = new JPanel();
         
-        scrollPane.setViewportView(PaneCreator.createEncounterPane(encounters));
-        frame.getContentPane().add(scrollPane);
+        JTabbedPane encounterPane = PaneCreator.createEncounterTabbedPane(c);
+        encounterPane.setPreferredSize(panel.getSize());
+        
+        panel.add(encounterPane);
+        frame.add(panel);
         
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();

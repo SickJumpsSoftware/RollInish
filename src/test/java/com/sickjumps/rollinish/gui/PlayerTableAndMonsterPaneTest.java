@@ -1,5 +1,7 @@
 package com.sickjumps.rollinish.gui;
 
+import com.sickjumps.rollinish.gui.table.PlayerTableModel;
+import com.sickjumps.rollinish.gui.transfer.ImportTransferHandler;
 import com.sickjumps.rollinish.campaign.character.Monster;
 import com.sickjumps.rollinish.campaign.character.Participant;
 import com.sickjumps.rollinish.campaign.io.MonsterDataParser;
@@ -64,7 +66,7 @@ public class PlayerTableAndMonsterPaneTest {
         JPanel rightPanel = new JPanel();
         JTable table = new JTable(new PlayerTableModel(players));
         table.setDragEnabled(true);
-        table.setTransferHandler(new ActiveTransferHandler());
+        table.setTransferHandler(new ImportTransferHandler());
         table.setFillsViewportHeight(true);
         JScrollPane scrollPane = new JScrollPane(table);
         

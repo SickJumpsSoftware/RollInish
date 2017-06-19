@@ -1,5 +1,6 @@
 package com.sickjumps.rollinish.gui;
 
+import com.sickjumps.rollinish.gui.table.PlayerTableModel;
 import com.sickjumps.rollinish.campaign.character.Participant;
 import java.awt.Dimension;
 import java.util.ArrayList;

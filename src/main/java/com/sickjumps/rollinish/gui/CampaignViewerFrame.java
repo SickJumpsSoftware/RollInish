@@ -6,19 +6,23 @@
 package com.sickjumps.rollinish.gui;
 
 import com.sickjumps.rollinish.campaign.Campaign;
-import com.sickjumps.rollinish.campaign.Encounter;
 import com.sickjumps.rollinish.campaign.character.Monster;
+import com.sickjumps.rollinish.campaign.character.Participant;
+import com.sickjumps.rollinish.gui.table.AvailablePlayerTableModel;
+import com.sickjumps.rollinish.gui.table.PlayerTableModel;
+import com.sickjumps.rollinish.gui.transfer.ExportTransferHandler;
 import java.awt.Color;
+import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
@@ -28,7 +32,7 @@ import javax.swing.border.LineBorder;
  *
  * @author Nathan
  */
-public class CampaignViewerFrame extends javax.swing.JFrame {
+public final class CampaignViewerFrame extends JFrame {
 
     private final List<Monster> monsterData;
     private final Campaign campaign;
@@ -41,7 +45,9 @@ public class CampaignViewerFrame extends javax.swing.JFrame {
         this.campaign = c;
         
         initComponents();
+        this.tblAvailable.setTransferHandler(new ExportTransferHandler());
     }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,19 +67,13 @@ public class CampaignViewerFrame extends javax.swing.JFrame {
         btnRemoveActive = new JButton();
         btnNextTurn = new JButton();
         btnAddMonster = new JButton();
-        tabEncounters = PaneCreator.createEncounterPane(this.campaign.getEncounters());
         tabMonsterTable = PaneCreator.createMonsterPane(monsterData);
-        jMenuBar1 = new JMenuBar();
-        mnuFile = new JMenu();
-        mnuFileSave = new JMenuItem();
-        mnuFileLoad = new JMenuItem();
-        jSeparator1 = new JPopupMenu.Separator();
-        mnuFileOptions = new JMenuItem();
-        jSeparator2 = new JPopupMenu.Separator();
-        mnuFileExit = new JMenuItem();
-        jMenu2 = new JMenu();
+        jScrollPane2 = new JScrollPane();
+        tblAvailable = new JTable();
+        tabEncounterPane = PaneCreator.createEncounterTabbedPane(campaign);
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setExtendedState(Frame.MAXIMIZED_BOTH);
 
         campaignTextLog.setEditable(false);
         campaignTextLog.setColumns(20);
@@ -85,6 +85,11 @@ public class CampaignViewerFrame extends javax.swing.JFrame {
         leftButtonPanel.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 
         btnAddAvailable.setText("Add Player");
+        btnAddAvailable.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                btnAddAvailableActionPerformed(evt);
+            }
+        });
 
         btnRemoveAvailable.setText("Remove Player");
 
@@ -134,10 +139,16 @@ public class CampaignViewerFrame extends javax.swing.JFrame {
                 .addComponent(btnRemoveActive)
                 .addGap(18, 18, 18)
                 .addComponent(btnNextTurn)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 309, Short.MAX_VALUE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 332, Short.MAX_VALUE)
                 .addComponent(btnAddMonster)
                 .addGap(163, 163, 163))
         );
+
+        tblAvailable.setModel(new AvailablePlayerTableModel(campaign.getAvailable()));
+        tblAvailable.setDragEnabled(true);
+        tblAvailable.setFillsViewportHeight(true);
+        tblAvailable.setPreferredSize(this.tabMonsterTable.getPreferredSize());
+        jScrollPane2.setViewportView(tblAvailable);
 
         GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -147,8 +158,11 @@ public class CampaignViewerFrame extends javax.swing.JFrame {
                 .addComponent(leftButtonPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(tabEncounters, GroupLayout.DEFAULT_SIZE, 872, Short.MAX_VALUE)
-                    .addComponent(tabMonsterTable))
+                    .addComponent(tabMonsterTable, GroupLayout.DEFAULT_SIZE, 872, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tabEncounterPane)))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(rightButtonPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -160,34 +174,13 @@ public class CampaignViewerFrame extends javax.swing.JFrame {
                     .addComponent(leftButtonPanel, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(rightButtonPanel, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(tabEncounters, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(tabEncounterPane))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tabMonsterTable, GroupLayout.PREFERRED_SIZE, 212, GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
-
-        mnuFile.setText("File");
-
-        mnuFileSave.setText("Save...");
-        mnuFile.add(mnuFileSave);
-
-        mnuFileLoad.setText("Load...");
-        mnuFile.add(mnuFileLoad);
-        mnuFile.add(jSeparator1);
-
-        mnuFileOptions.setText("Options...");
-        mnuFile.add(mnuFileOptions);
-        mnuFile.add(jSeparator2);
-
-        mnuFileExit.setText("Exit");
-        mnuFile.add(mnuFileExit);
-
-        jMenuBar1.add(mnuFile);
-
-        jMenu2.setText("Campaign");
-        jMenuBar1.add(jMenu2);
-
-        setJMenuBar(jMenuBar1);
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -209,7 +202,17 @@ public class CampaignViewerFrame extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAddAvailableActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnAddAvailableActionPerformed
+        Participant p = new AddPlayerDialog(this, true).getResult();
+        
+        if (p != null) {
+            this.campaign.addAvailablePlayer(p);
+            ((PlayerTableModel)this.tblAvailable.getModel()).addRow(p);
+        }
+    }//GEN-LAST:event_btnAddAvailableActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton btnAddAvailable;
@@ -218,20 +221,13 @@ public class CampaignViewerFrame extends javax.swing.JFrame {
     private JButton btnRemoveActive;
     private JButton btnRemoveAvailable;
     private JTextArea campaignTextLog;
-    private JMenu jMenu2;
-    private JMenuBar jMenuBar1;
     private JPanel jPanel1;
     private JScrollPane jScrollPane1;
-    private JPopupMenu.Separator jSeparator1;
-    private JPopupMenu.Separator jSeparator2;
+    private JScrollPane jScrollPane2;
     private JPanel leftButtonPanel;
-    private JMenu mnuFile;
-    private JMenuItem mnuFileExit;
-    private JMenuItem mnuFileLoad;
-    private JMenuItem mnuFileOptions;
-    private JMenuItem mnuFileSave;
     private JPanel rightButtonPanel;
-    private JTabbedPane tabEncounters;
+    private JTabbedPane tabEncounterPane;
     private JTabbedPane tabMonsterTable;
+    private JTable tblAvailable;
     // End of variables declaration//GEN-END:variables
 }

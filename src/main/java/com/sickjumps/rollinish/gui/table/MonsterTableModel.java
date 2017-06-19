@@ -1,4 +1,4 @@
-package com.sickjumps.rollinish.gui;
+package com.sickjumps.rollinish.gui.table;
 
 import com.sickjumps.rollinish.campaign.character.Monster;
 import java.util.ArrayList;

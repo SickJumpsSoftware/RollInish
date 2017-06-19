@@ -12,27 +12,14 @@ import java.util.List;
 
 public class Encounter implements Serializable {
 
-    private List<Participant> available;
     private List<Participant> active;
     private String encounterName;
 
     public Encounter(String encounterName) {
         this.encounterName = encounterName;
-        this.available = new ArrayList<>();
         this.active = new ArrayList<>();
     }
     
-    public void addAvailablePlayer(Participant p) {
-        this.available.add(p);
-    }
-
-    public List<Participant> getAvailable() {
-        return available;
-    }
-
-    public void setAvailable(List<Participant> available) {
-        this.available = available;
-    }
 
     public void addActivePlayer(Participant p) {
         this.active.add(p);

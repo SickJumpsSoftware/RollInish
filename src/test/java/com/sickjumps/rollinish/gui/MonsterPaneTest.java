@@ -5,6 +5,8 @@
  */
 package com.sickjumps.rollinish.gui;
 
+import com.sickjumps.rollinish.gui.table.MonsterTableModel;
+import com.sickjumps.rollinish.gui.transfer.ImportTransferHandler;
 import com.sickjumps.rollinish.campaign.character.Monster;
 import com.sickjumps.rollinish.campaign.io.MonsterDataParser;
 import java.io.InputStream;
@@ -52,7 +54,7 @@ public class MonsterPaneTest extends JPanel {
             JTable table = new JTable(new MonsterTableModel(monstersByCR.get(cr)));
             
             table.setDragEnabled(true);
-            table.setTransferHandler(new ActiveTransferHandler());
+            table.setTransferHandler(new ImportTransferHandler());
             
             this.jTabbedPane1.addTab(cr, new JScrollPane(table));
         });

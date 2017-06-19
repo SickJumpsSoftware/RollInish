@@ -1,6 +1,8 @@
-package com.sickjumps.rollinish.gui;
+package com.sickjumps.rollinish.gui.transfer;
 
 import com.sickjumps.rollinish.campaign.character.Participant;
+import com.sickjumps.rollinish.gui.table.MonsterTableModel;
+import com.sickjumps.rollinish.gui.table.PlayerTableModel;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
@@ -18,37 +20,13 @@ import org.slf4j.LoggerFactory;
  * @author Nathan
  */
 
-public class ActiveTransferHandler extends TransferHandler {
+public class ImportTransferHandler extends TransferHandler {
 
     private final DataFlavor localDataFlavor;
-    private final static Logger logger = LoggerFactory.getLogger(ActiveTransferHandler.class);
+    private final static Logger logger = LoggerFactory.getLogger(ImportTransferHandler.class);
     
-    public ActiveTransferHandler() {
+    public ImportTransferHandler() {
         localDataFlavor = new ActivationDataFlavor(Participant.class, DataFlavor.javaJVMLocalObjectMimeType, "Participant object");
-    }
-    
-    @Override
-    public int getSourceActions(JComponent c) {
-        return COPY;
-    }
-    
-    @Override
-    protected Transferable createTransferable(JComponent c) {
-        JTable source = (JTable) c;
-        
-        TableModel model = source.getModel();
-        
-        if (model instanceof PlayerTableModel) {
-            PlayerTableModel transferModel = (PlayerTableModel) model;
-            
-            return transferModel.getRow(source.getSelectedRow());
-        } else if (model instanceof MonsterTableModel) {
-            MonsterTableModel transferModel = (MonsterTableModel) model;
-            
-            return transferModel.getRow(source.getSelectedRow());
-        }
-        
-        return null;
     }
     
     @Override
