@@ -5,10 +5,11 @@
  */
 package com.sickjumps.rollinish.campaign.designer;
 
-import ca.odell.glazedlists.EventList;
+import com.sickjumps.rollinish.ApplicationConfiguration;
 import com.sickjumps.rollinish.campaign.Campaign;
 import com.sickjumps.rollinish.campaign.DefaultCampaign;
 import com.sickjumps.rollinish.campaign.character.Participant;
+import com.sickjumps.rollinish.campaign.io.CampaignSerializer;
 import com.sickjumps.rollinish.gui.AddNewPlayerDialog;
 import com.sickjumps.rollinish.gui.table.PlayerTableModel;
 import com.sickjumps.rollinish.gui.table.RowObjectTableModel;
@@ -16,15 +17,16 @@ import com.sickjumps.rollinish.gui.table.TableFormatGenerator;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -33,13 +35,15 @@ import javax.swing.table.DefaultTableModel;
 public class CampaignDesigner extends javax.swing.JDialog {
 
     private Campaign campaign;
+    private final ApplicationConfiguration config;
     
     /**
      * Creates new form CampaignDesigner
      */
-    public CampaignDesigner() {
+    public CampaignDesigner(ApplicationConfiguration config) {
         super((Frame)null, true);
         this.campaign = new DefaultCampaign();
+        this.config = config;
         
         initComponents();
     }
@@ -170,6 +174,20 @@ public class CampaignDesigner extends javax.swing.JDialog {
 
     private void btnSaveActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         this.campaign.setCampaignName(txtCampaignName.getText());
+        
+        String saveDirectory = config.getLastCampaignSaveDirectory();
+        if (saveDirectory.isEmpty()) saveDirectory = config.getDefaultCampaignSaveDirectory();
+        
+        final JFileChooser jfc = new JFileChooser();
+        jfc.setCurrentDirectory(new File(saveDirectory));
+        jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        
+        int result = jfc.showSaveDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File f = jfc.getSelectedFile();
+            CampaignSerializer.save(campaign, f);
+        }
+        
         this.setVisible(false);
     }//GEN-LAST:event_btnSaveActionPerformed
 

@@ -91,7 +91,7 @@ public final class RollInish {
     }
     
     private Campaign createNewCampaign(ApplicationConfiguration config) {
-        CampaignDesigner designer = new CampaignDesigner();
+        CampaignDesigner designer = new CampaignDesigner(config);
         
         return designer.getResult();
     }

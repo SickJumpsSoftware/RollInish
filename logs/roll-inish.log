@@ -58,3 +58,10 @@
 2017-06-22 19:37:32,196 INFO [main] c.s.r.RollInish [RollInish.java:28] Loading monster data
 2017-06-22 19:37:32,261 INFO [main] c.s.r.RollInish [RollInish.java:31] Creating default campaign
 2017-06-22 19:37:32,267 INFO [main] c.s.r.RollInish [RollInish.java:34] Starting main GUI
+2017-06-22 21:47:23,875 INFO [main] c.s.r.RollInish [RollInish.java:30] RollInish v0.1a
+2017-06-22 21:47:23,878 INFO [main] c.s.r.RollInish [RollInish.java:33] Logging is live
+2017-06-22 21:47:23,878 INFO [main] c.s.r.RollInish [RollInish.java:35] Loading application configuration
+2017-06-22 21:47:23,892 INFO [main] c.s.r.RollInish [RollInish.java:38] Loading monster data
+2017-06-22 21:47:23,997 INFO [AWT-EventQueue-0] c.s.r.RollInish [RollInish.java:44] Create and show application start dialog
+2017-06-22 21:47:29,198 INFO [AWT-EventQueue-0] c.s.r.RollInish [RollInish.java:52] Create new campaign
+2017-06-22 21:47:45,832 INFO [AWT-EventQueue-0] c.s.r.RollInish [RollInish.java:56] Starting main GUI
