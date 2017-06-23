@@ -33,15 +33,15 @@ import javax.swing.WindowConstants;
  * @author Nathan
  */
 public class CampaignDesigner extends javax.swing.JDialog {
-
+    
     private Campaign campaign;
     private final ApplicationConfiguration config;
-    
+
     /**
      * Creates new form CampaignDesigner
      */
     public CampaignDesigner(ApplicationConfiguration config) {
-        super((Frame)null, true);
+        super((Frame) null, true);
         this.campaign = new DefaultCampaign();
         this.config = config;
         
@@ -157,26 +157,30 @@ public class CampaignDesigner extends javax.swing.JDialog {
         
         this.campaign.addAvailablePlayer(p);
     }//GEN-LAST:event_btnAddActionPerformed
-
+    
     private void btnRemoveActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
         int index = tblPlayers.getSelectedRow();
         
-        if (index == -1) return;
+        if (index == -1) {
+            return;
+        }
         
-        RowObjectTableModel<Participant> model = (RowObjectTableModel<Participant>)tblPlayers.getModel();
+        RowObjectTableModel<Participant> model = (RowObjectTableModel<Participant>) tblPlayers.getModel();
         
         this.campaign.removeAvailablePlayer(model.getRow(index));
     }//GEN-LAST:event_btnRemoveActionPerformed
-
+    
     private void btnCancelActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_btnCancelActionPerformed
-
+    
     private void btnSaveActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         this.campaign.setCampaignName(txtCampaignName.getText());
         
         String saveDirectory = config.getLastCampaignSaveDirectory();
-        if (saveDirectory.isEmpty()) saveDirectory = config.getDefaultCampaignSaveDirectory();
+        if (saveDirectory.isEmpty()) {
+            saveDirectory = config.getDefaultCampaignSaveDirectory();
+        }
         
         final JFileChooser jfc = new JFileChooser();
         jfc.setCurrentDirectory(new File(saveDirectory));

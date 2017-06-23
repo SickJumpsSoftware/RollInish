@@ -15,18 +15,17 @@ import org.slf4j.LoggerFactory;
  *
  * @author Nathan
  */
-
 public class CampaignSerializer {
     
     private final static Logger logger = LoggerFactory.getLogger(CampaignSerializer.class);
-
+    
     public static Campaign load(File file) {
         Campaign c = new DefaultCampaign();
         
         try (FileInputStream fis = new FileInputStream(file);
                 ObjectInputStream ois = new ObjectInputStream(fis)) {
             
-            c = (Campaign)ois.readObject();
+            c = (Campaign) ois.readObject();
         } catch (IOException ex) {
             logger.error("Unable to load campaign from file", ex);
         } catch (ClassNotFoundException ex) {

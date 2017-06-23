@@ -12,10 +12,16 @@ import java.util.List;
  * @author Nathan
  */
 public interface RowObjectTableModel<T> {
+
     public T getRow(int rowIndex);
+
     public List<T> getRows(int... rows);
+
     public void addRow(T t);
+
     public void insertRow(T t, int rowIndex);
+
     public void removeRow(int rowIndex);
+
     public void removeAllRows();
 }

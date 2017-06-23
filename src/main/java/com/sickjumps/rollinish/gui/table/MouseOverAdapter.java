@@ -24,7 +24,7 @@ public class MouseOverAdapter extends MouseAdapter {
             table.setRowSelectionInterval(row, row);
         }
     }
-    
+
     @Override
     public void mouseExited(MouseEvent e) {
         table.clearSelection();

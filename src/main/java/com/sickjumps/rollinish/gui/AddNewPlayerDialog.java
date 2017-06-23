@@ -24,7 +24,7 @@ import javax.swing.WindowConstants;
 public class AddNewPlayerDialog extends javax.swing.JDialog {
 
     private Participant player;
-    
+
     /**
      * Creates new form AddPlayerDialog
      * @inheritdoc
@@ -34,10 +34,10 @@ public class AddNewPlayerDialog extends javax.swing.JDialog {
         initComponents();
         this.getRootPane().setDefaultButton(this.btnOK);
     }
-    
+
     public Participant getResult() {
         this.setVisible(true);
-        
+
         return player;
     }
 
@@ -139,17 +139,17 @@ public class AddNewPlayerDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_txtPlayerNameActionPerformed
 
     private void btnOKActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
-        this.player = new Participant(txtCharName.getText(), 
-                                      txtPlayerName.getText(),
-                                      cmbDexMod.getItemAt(
-                                              cmbDexMod.getSelectedIndex()));
-        
+        this.player = new Participant(txtCharName.getText(),
+                txtPlayerName.getText(),
+                cmbDexMod.getItemAt(
+                        cmbDexMod.getSelectedIndex()));
+
         this.setVisible(false);
     }//GEN-LAST:event_btnOKActionPerformed
 
     private void btnCancelActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         this.player = null;
-        
+
         this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 

@@ -19,25 +19,25 @@ import javax.swing.WindowConstants;
  * @author Nathan
  */
 public class ApplicationStartDialog extends JDialog {
-    
+
     private ApplicationChoice choice;
-    
+
     /**
      * Creates new form ApplicationStartDialog
      */
     public ApplicationStartDialog() {
-        super((Frame)null, true);
-        
+        super((Frame) null, true);
+
         this.choice = ApplicationChoice.NEW;
-        
+
         initComponents();
     }
-    
+
     public ApplicationChoice getResult() {
         this.setVisible(true);
         return this.choice;
     }
-    
+
     public static enum ApplicationChoice {
         LOAD, NEW
     }

@@ -11,8 +11,8 @@ import java.util.Objects;
  *
  * @author Nathan
  */
-
 public class Participant implements Serializable, Transferable {
+
     private String characterName;
     private String playerName;
     private int dexMod;
@@ -101,7 +101,7 @@ public class Participant implements Serializable, Transferable {
 
     @Override
     public DataFlavor[] getTransferDataFlavors() {
-        return new DataFlavor[] { new DataFlavor(Participant.class, "Participant") };
+        return new DataFlavor[]{new DataFlavor(Participant.class, "Participant")};
     }
 
     @Override

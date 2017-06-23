@@ -31,30 +31,50 @@ public enum Alignment {
     NE("Neutral Evil"),
     CE("Chaotic Evil"),
     UN("Unaligned");
-    
+
     private final String alignment;
-    
+
     private Alignment(String alignment) {
         this.alignment = alignment;
     }
-    
+
     @Override
     public String toString() {
         return alignment;
     }
-    
+
     public static Alignment fromString(String alignment) {
-        if (alignment.equalsIgnoreCase("lg")) return LG;
-        if (alignment.equalsIgnoreCase("ng")) return NG;
-        if (alignment.equalsIgnoreCase("cg")) return CG;
-        if (alignment.equalsIgnoreCase("ln")) return LN;
-        if (alignment.equalsIgnoreCase("n")) return NN;
-        if (alignment.equalsIgnoreCase("cn")) return CN;
-        if (alignment.equalsIgnoreCase("le")) return LE;
-        if (alignment.equalsIgnoreCase("ne")) return NE;
-        if (alignment.equalsIgnoreCase("ce")) return CE;
-        if (alignment.equalsIgnoreCase("unaligned")) return UN;
-        
+        if (alignment.equalsIgnoreCase("lg")) {
+            return LG;
+        }
+        if (alignment.equalsIgnoreCase("ng")) {
+            return NG;
+        }
+        if (alignment.equalsIgnoreCase("cg")) {
+            return CG;
+        }
+        if (alignment.equalsIgnoreCase("ln")) {
+            return LN;
+        }
+        if (alignment.equalsIgnoreCase("n")) {
+            return NN;
+        }
+        if (alignment.equalsIgnoreCase("cn")) {
+            return CN;
+        }
+        if (alignment.equalsIgnoreCase("le")) {
+            return LE;
+        }
+        if (alignment.equalsIgnoreCase("ne")) {
+            return NE;
+        }
+        if (alignment.equalsIgnoreCase("ce")) {
+            return CE;
+        }
+        if (alignment.equalsIgnoreCase("unaligned")) {
+            return UN;
+        }
+
         throw new IllegalArgumentException(String.format("Illegal alignment string: %s", alignment));
     }
 }

@@ -7,7 +7,6 @@ import java.util.Comparator;
  *
  * @author Nathan
  */
-
 public class DexModComparator implements Comparator<Participant> {
 
     @Override

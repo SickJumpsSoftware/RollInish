@@ -35,33 +35,62 @@ public enum Type {
     OOZE("Ooze"),
     PLANT("Plant"),
     UNDEAD("Undead");
-    
+
     private final String name;
+
     private Type(String name) {
-        this.name = name;        
+        this.name = name;
     }
-    
+
     @Override
     public String toString() {
         return name;
     }
-    
+
     public static Type fromString(String name) {
-        if (name.equalsIgnoreCase("aberration")) return ABERRATION;
-        if (name.equalsIgnoreCase("beast")) return BEAST;
-        if (name.equalsIgnoreCase("celestial")) return CELESTIAL;
-        if (name.equalsIgnoreCase("construct")) return CONSTRUCT;
-        if (name.equalsIgnoreCase("dragon")) return DRAGON;
-        if (name.equalsIgnoreCase("elemental")) return ELEMENTAL;
-        if (name.equalsIgnoreCase("fey")) return FEY;
-        if (name.equalsIgnoreCase("fiend")) return FIEND;
-        if (name.equalsIgnoreCase("giant")) return GIANT;
-        if (name.equalsIgnoreCase("humanoid")) return HUMANOID;
-        if (name.equalsIgnoreCase("monstrosity")) return MONSTROSITY;
-        if (name.equalsIgnoreCase("ooze")) return OOZE;
-        if (name.equalsIgnoreCase("plant")) return PLANT;
-        if (name.equalsIgnoreCase("undead")) return UNDEAD;
-        
+        if (name.equalsIgnoreCase("aberration")) {
+            return ABERRATION;
+        }
+        if (name.equalsIgnoreCase("beast")) {
+            return BEAST;
+        }
+        if (name.equalsIgnoreCase("celestial")) {
+            return CELESTIAL;
+        }
+        if (name.equalsIgnoreCase("construct")) {
+            return CONSTRUCT;
+        }
+        if (name.equalsIgnoreCase("dragon")) {
+            return DRAGON;
+        }
+        if (name.equalsIgnoreCase("elemental")) {
+            return ELEMENTAL;
+        }
+        if (name.equalsIgnoreCase("fey")) {
+            return FEY;
+        }
+        if (name.equalsIgnoreCase("fiend")) {
+            return FIEND;
+        }
+        if (name.equalsIgnoreCase("giant")) {
+            return GIANT;
+        }
+        if (name.equalsIgnoreCase("humanoid")) {
+            return HUMANOID;
+        }
+        if (name.equalsIgnoreCase("monstrosity")) {
+            return MONSTROSITY;
+        }
+        if (name.equalsIgnoreCase("ooze")) {
+            return OOZE;
+        }
+        if (name.equalsIgnoreCase("plant")) {
+            return PLANT;
+        }
+        if (name.equalsIgnoreCase("undead")) {
+            return UNDEAD;
+        }
+
         throw new IllegalArgumentException(String.format("Invalid string parameter passed for Type: %s", name));
     }
 }

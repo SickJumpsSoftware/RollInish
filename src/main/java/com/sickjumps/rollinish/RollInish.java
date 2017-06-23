@@ -40,7 +40,7 @@ public final class RollInish {
 
         SwingUtilities.invokeLater(() -> {
             Campaign c;
-            
+
             logger.info("Create and show application start dialog");
             ApplicationStartDialog start = new ApplicationStartDialog();
             ApplicationStartDialog.ApplicationChoice choice = start.getResult();
@@ -52,7 +52,7 @@ public final class RollInish {
                 logger.info("Create new campaign");
                 c = app.createNewCampaign(config);
             }
-            
+
             logger.info("Starting main GUI");
             CampaignViewerFrame cvf = new CampaignViewerFrame(c, monsterData);
             cvf.setVisible(true);
@@ -70,29 +70,31 @@ public final class RollInish {
 
         return monsterData;
     }
-    
+
     private Campaign loadExistingCampaign(ApplicationConfiguration config) {
         String saveDirectory = config.getLastCampaignSaveDirectory();
-        if (saveDirectory.isEmpty()) saveDirectory = config.getDefaultCampaignSaveDirectory();
-        
+        if (saveDirectory.isEmpty()) {
+            saveDirectory = config.getDefaultCampaignSaveDirectory();
+        }
+
         final JFileChooser jfc = new JFileChooser();
         jfc.setCurrentDirectory(new File(saveDirectory));
         jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        
+
         int result = jfc.showOpenDialog(null);
-        
+
         if (result == JFileChooser.APPROVE_OPTION) {
             File f = jfc.getSelectedFile();
-            
+
             return CampaignSerializer.load(f);
         } else {
             return new DefaultCampaign();
         }
     }
-    
+
     private Campaign createNewCampaign(ApplicationConfiguration config) {
         CampaignDesigner designer = new CampaignDesigner(config);
-        
+
         return designer.getResult();
     }
 }

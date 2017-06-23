@@ -11,11 +11,10 @@ import java.util.List;
  *
  * @author Nathan
  */
-
 public class PlayerTableModel extends DefaultEventTableModel implements RowObjectTableModel<Participant> {
-    
+
     private final List<Participant> players;
-    
+
     public PlayerTableModel(EventList<Participant> players, TableFormat<Participant> tableFormat) {
         super(players, tableFormat);
         this.players = players;
@@ -29,9 +28,11 @@ public class PlayerTableModel extends DefaultEventTableModel implements RowObjec
     @Override
     public List<Participant> getRows(int... rows) {
         List<Participant> playerList = new ArrayList<>();
-        
-        for (int row : rows) playerList.add(this.players.get(row));
-        
+
+        for (int row : rows) {
+            playerList.add(this.players.get(row));
+        }
+
         return playerList;
     }
 

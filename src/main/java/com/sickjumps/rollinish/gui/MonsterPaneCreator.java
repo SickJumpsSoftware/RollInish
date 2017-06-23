@@ -21,17 +21,16 @@ import javax.swing.JTable;
  *
  * @author Nathan
  */
-
 class MonsterPaneCreator {
 
     static JTabbedPane createMonsterPane(List<Monster> monsterData) {
         Map<String, EventList<Monster>> monstersByCR = new LinkedHashMap<>();
         JTabbedPane monsterPane = new JTabbedPane();
-        
+
         createMonsterMap(monsterData, monstersByCR);
-        
+
         createTabbedPane(monstersByCR, monsterPane);
-        
+
         return monsterPane;
     }
 
@@ -39,17 +38,17 @@ class MonsterPaneCreator {
         monstersByCR.keySet().stream().forEach((String cr) -> {
             TableFormat<Monster> format = TableFormatGenerator.getMonsterTableFormat();
             JTable table = new JTable(new MonsterTableModel(monstersByCR.get(cr), format));
-            
+
             table.setDragEnabled(true);
             table.setTransferHandler(new ExportTransferHandler());
-            
+
             table.setRowHeight(35);
             table.setIntercellSpacing(new Dimension(10, 15));
-            
+
             MouseOverAdapter adapter = new MouseOverAdapter(table);
             table.addMouseMotionListener(adapter);
             table.addMouseListener(adapter);
-            
+
             monsterPane.addTab(cr, new JScrollPane(table));
         });
     }

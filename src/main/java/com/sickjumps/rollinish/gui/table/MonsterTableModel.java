@@ -11,9 +11,8 @@ import java.util.List;
  *
  * @author Nathan
  */
-
 public class MonsterTableModel extends DefaultEventTableModel<Monster> implements RowObjectTableModel<Monster> {
-    
+
     private final List<Monster> monsterList;
 
     public MonsterTableModel(EventList<Monster> source, TableFormat<Monster> tableFormat) {
@@ -29,11 +28,11 @@ public class MonsterTableModel extends DefaultEventTableModel<Monster> implement
     @Override
     public List<Monster> getRows(int... rows) {
         List<Monster> rowList = new ArrayList<>();
-        
+
         for (int i : rows) {
             rowList.add(this.monsterList.get(i));
         }
-        
+
         return rowList;
     }
 
@@ -54,7 +53,7 @@ public class MonsterTableModel extends DefaultEventTableModel<Monster> implement
         this.monsterList.remove(rowIndex);
         super.fireTableDataChanged();
     }
-    
+
     @Override
     public void removeAllRows() {
         this.monsterList.clear();

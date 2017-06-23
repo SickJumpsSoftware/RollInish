@@ -46,70 +46,70 @@ public final class CampaignViewerFrame extends JFrame {
 
     private final List<Monster> monsterData;
     private final Campaign campaign;
-    
+
     /**
      * Creates new form CampaignViewerFrame
      */
     public CampaignViewerFrame(Campaign c, List<Monster> monsterData) {
         this.monsterData = monsterData;
         this.campaign = c;
-        
+
         initComponents();
-        
+
         configureTables();
-        
+
         this.paneTables.setResizeWeight(0.5d);
         this.paneTables.setEnabled(false);
         this.pack();
     }
-    
+
     private void configureTables() {
         configureActiveTable();
-        
+
         configureAvailableTable();
     }
 
     private void configureAvailableTable() {
         MouseOverAdapter adapter = new MouseOverAdapter(tblAvailable);
-        
+
         tblAvailable.setTransferHandler(new ExportTransferHandler());
         tblAvailable.setDragEnabled(true);
-        
+
         tblAvailable.setRowHeight(50);
         tblAvailable.setIntercellSpacing(new Dimension(10, 15));
-        
+
         tblAvailable.setModel(new PlayerTableModel(campaign.getAvailable(),
                 TableFormatGenerator.getPlayerTableFormat()));
-        
+
         tblAvailable.addMouseMotionListener(adapter);
         tblAvailable.addMouseListener(adapter);
     }
 
     private void configureActiveTable() {
         MouseOverAdapter adapter = new MouseOverAdapter(tblActive);
-        
+
         SortedList<Participant> playerList = new SortedList<>(campaign.getActive(), new InitiativeComparator());
-        TableComparatorChooser<Participant> sorter = 
-                TableComparatorChooser.install(tblActive, 
-                                               playerList, 
-                                               TableComparatorChooser.SINGLE_COLUMN);
-        
+        TableComparatorChooser<Participant> sorter
+                = TableComparatorChooser.install(tblActive,
+                        playerList,
+                        TableComparatorChooser.SINGLE_COLUMN);
+
         tblActive.setModel(
                 new PlayerTableModel(
                         playerList,
                         TableFormatGenerator.getActivePlayerTableFormat()));
-        
+
         tblActive.setTransferHandler(new ImportTransferHandler());
         tblActive.setDragEnabled(false);
-        
+
         tblActive.setRowHeight(50);
         tblActive.setIntercellSpacing(new Dimension(10, 15));
-        
+
         tblActive.addMouseMotionListener(adapter);
         tblActive.addMouseListener(adapter);
         tblActive.addMouseListener(new CellClickHandler(tblActive));
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -270,7 +270,7 @@ jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(GroupLayout.A
 
     private void btnAddNewPlayerActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnAddNewPlayerActionPerformed
         Participant p = new AddNewPlayerDialog(this, true).getResult();
-        
+
         if (p != null) {
             this.campaign.addAvailablePlayer(p);
         }
@@ -278,12 +278,14 @@ jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(GroupLayout.A
 
     private void btnRemoveAvailableActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnRemoveAvailableActionPerformed
         int index = this.tblAvailable.getSelectedRow();
-        
-        if (index < 0) return;
-        
-        RowObjectTableModel<Participant> model = (RowObjectTableModel<Participant>)this.tblAvailable.getModel();
+
+        if (index < 0) {
+            return;
+        }
+
+        RowObjectTableModel<Participant> model = (RowObjectTableModel<Participant>) this.tblAvailable.getModel();
         Participant p = model.getRow(index);
-        
+
         this.campaign.removeAvailablePlayer(p);
     }//GEN-LAST:event_btnRemoveAvailableActionPerformed
 
@@ -293,12 +295,14 @@ jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(GroupLayout.A
 
     private void btnRemoveActiveActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnRemoveActiveActionPerformed
         int index = this.tblActive.getSelectedRow();
-        
-        if (index < 0) return;
-        
-        RowObjectTableModel<Participant> model = (RowObjectTableModel<Participant>)this.tblActive.getModel();
+
+        if (index < 0) {
+            return;
+        }
+
+        RowObjectTableModel<Participant> model = (RowObjectTableModel<Participant>) this.tblActive.getModel();
         Participant p = model.getRow(index);
-        
+
         this.campaign.removeActive(p);
     }//GEN-LAST:event_btnRemoveActiveActionPerformed
 

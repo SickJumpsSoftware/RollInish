@@ -15,40 +15,43 @@ import org.slf4j.LoggerFactory;
  *
  * @author Nathan
  */
-
 public class ImportTransferHandler extends TransferHandler {
 
     private final DataFlavor localDataFlavor;
     private final static Logger logger = LoggerFactory.getLogger(ImportTransferHandler.class);
-    
+
     public ImportTransferHandler() {
         localDataFlavor = new ActivationDataFlavor(Participant.class, DataFlavor.javaJVMLocalObjectMimeType, "Participant object");
     }
-    
+
     @Override
     public boolean canImport(TransferHandler.TransferSupport info) {
-        if (!info.isDrop()) return false;
-        
+        if (!info.isDrop()) {
+            return false;
+        }
+
         return info.getComponent() instanceof JTable;
     }
-    
+
     @Override
     public boolean importData(TransferHandler.TransferSupport info) {
-        if (!this.canImport(info)) return false;
-        
+        if (!this.canImport(info)) {
+            return false;
+        }
+
         try {
             JTable table = (JTable) info.getComponent();
             PlayerTableModel model = (PlayerTableModel) table.getModel();
-            
+
             model.addRow((Participant) info.getTransferable().getTransferData(localDataFlavor));
-            
+
             return true;
         } catch (UnsupportedFlavorException ufe) {
             logger.error("Unsupported DataFlavor for drop operation", ufe);
         } catch (IOException ioe) {
             logger.error("Data no longer available in requested flavor", ioe);
         }
-        
+
         return false;
     }
 }

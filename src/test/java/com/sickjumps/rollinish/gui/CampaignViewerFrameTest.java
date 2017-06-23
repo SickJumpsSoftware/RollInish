@@ -12,12 +12,10 @@ import java.util.ArrayList;
  *
  * @author Nathan
  */
-
-
 public class CampaignViewerFrameTest {
-    
+
     private final static EventList<Monster> testMonsters = new BasicEventList();
-    
+
     static {
         InputStream is = CampaignViewerFrameTest.class.getClassLoader().getResourceAsStream("monsters.csv");
         testMonsters.addAll(MonsterDataParser.getMonsterData(is));
@@ -25,7 +23,7 @@ public class CampaignViewerFrameTest {
 
     public static void main(String[] args) {
         Campaign campaign = new Campaign("Test campaign");
-        
+
         CampaignViewerFrame frame = new CampaignViewerFrame(campaign, new ArrayList<>(testMonsters));
         frame.setVisible(true);
     }

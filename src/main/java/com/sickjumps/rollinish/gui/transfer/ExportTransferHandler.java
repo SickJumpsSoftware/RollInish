@@ -17,33 +17,32 @@ import org.slf4j.LoggerFactory;
  *
  * @author Nathan
  */
-
 public class ExportTransferHandler extends TransferHandler {
 
     private final static Logger logger = LoggerFactory.getLogger(ExportTransferHandler.class);
     private final DataFlavor localDataFlavor;
-    
+
     public ExportTransferHandler() {
         localDataFlavor = new ActivationDataFlavor(Participant.class, DataFlavor.javaJVMLocalObjectMimeType, "Participant");
     }
-    
+
     @Override
     public int getSourceActions(JComponent c) {
         return COPY;
     }
-    
+
     @Override
     protected Transferable createTransferable(JComponent c) {
         JTable source = (JTable) c;
-        
+
         TableModel model = source.getModel();
-        
+
         if (model instanceof PlayerTableModel) {
             return ((PlayerTableModel) model).getRow(source.getSelectedRow());
         } else if (model instanceof MonsterTableModel) {
-            return ((MonsterTableModel)model).getRow(source.getSelectedRow());
+            return ((MonsterTableModel) model).getRow(source.getSelectedRow());
         }
-        
+
         return null;
     }
 }

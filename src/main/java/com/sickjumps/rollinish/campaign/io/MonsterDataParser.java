@@ -48,7 +48,7 @@ public class MonsterDataParser {
 
     private static Monster csvRecordToMonster(String[] record) {
         // Name,Size,Type,Tags,Alignment,Challenge,XP,Source
-        
+
         String name = record[0];
         Size size = Size.fromString(record[1]);
         Type type = Type.fromString(record[2]);
@@ -57,7 +57,7 @@ public class MonsterDataParser {
         String challenge = record[5];
         int xp = Integer.valueOf(record[6]);
         String source = record[7];
-        
+
         return new Monster(name, size, type, alignment, challenge, xp, source, tag);
     }
 }

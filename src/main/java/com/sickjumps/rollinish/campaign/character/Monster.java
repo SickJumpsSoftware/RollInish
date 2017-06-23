@@ -4,7 +4,6 @@ package com.sickjumps.rollinish.campaign.character;
  *
  * @author Nathan
  */
-
 public class Monster extends Participant {
 
     // "Name", "Size", "Type", "Tag", "Alignment", "CR", "XP", "Source"
@@ -37,11 +36,11 @@ public class Monster extends Participant {
         this.source = "";
         this.tag = "";
     }
-    
+
     public String getName() {
         return super.getCharacterName();
     }
-    
+
     public void setName(String name) {
         super.setCharacterName(name);
     }
