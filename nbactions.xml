@@ -20,8 +20,8 @@
         <preAction>build-with-dependencies</preAction>
         <goals>
             <goal>clean</goal>
-            <goal>compile</goal>
             <goal>assembly:single</goal>
+            
         </goals>
         <properties>
             <skipTests>true</skipTests>
