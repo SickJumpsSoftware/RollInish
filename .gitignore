@@ -18,3 +18,5 @@ hs_err_pid*
 # Gradle files
 .gradle/
 /build/
+/nbproject/private/
+/target/

@@ -1,59 +1,65 @@
 package com.sickjumps.rollinish.campaign;
 
-import com.sickjumps.rollinish.beans.Participant;
+import ca.odell.glazedlists.BasicEventList;
+import ca.odell.glazedlists.EventList;
+import ca.odell.glazedlists.GlazedLists;
+import com.sickjumps.rollinish.campaign.character.Participant;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Objects;
-
 
 /**
  *
  * @author Nathan
  */
-
 public class Campaign implements Serializable {
-    private final ArrayList<Participant> players;
-    private final String campaignName;
-    
-    public Campaign() {
-        this("Default Campaign");
-    }
+
+    private String campaignName;
+    private EventList<Participant> available;
+    private EventList<Participant> active;
 
     public Campaign(String campaignName) {
         this.campaignName = campaignName;
-        players = new ArrayList<>();
+
+        this.active = GlazedLists.threadSafeList(new BasicEventList<>());
+        this.available = GlazedLists.threadSafeList(new BasicEventList<>());
+    }
+
+    public void setCampaignName(String campaignName) {
+        this.campaignName = campaignName;
     }
 
     public String getCampaignName() {
         return campaignName;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 17 * hash + Objects.hashCode(this.players);
-        hash = 17 * hash + Objects.hashCode(this.campaignName);
-        return hash;
+    public void setAvailable(EventList<Participant> available) {
+        this.available = available;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Campaign other = (Campaign) obj;
-        if (!Objects.equals(this.campaignName, other.campaignName)) {
-            return false;
-        }
-        if (!Objects.equals(this.players, other.players)) {
-            return false;
-        }
-        return true;
+    public EventList<Participant> getAvailable() {
+        return available;
+    }
+
+    public void addAvailablePlayer(Participant p) {
+        this.available.add(p);
+    }
+
+    public void removeAvailablePlayer(Participant p) {
+        this.available.remove(p);
+    }
+
+    public EventList<Participant> getActive() {
+        return active;
+    }
+
+    public void setActive(EventList<Participant> active) {
+        this.active = active;
+    }
+
+    public void removeActive(Participant p) {
+        this.active.remove(p);
+    }
+
+    public void removeAllActive() {
+        this.active.clear();
     }
 }
