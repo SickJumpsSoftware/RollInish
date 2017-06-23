@@ -28,9 +28,10 @@ public class MonsterDataParser {
         EventList<Monster> monsterData = new BasicEventList<>();
         CSVParser parser = new CSVParser();
 
+        String line = "";
         try (BufferedReader br = new BufferedReader(new InputStreamReader(csvData))) {
             while (br.ready()) {
-                String line = br.readLine();
+                line = br.readLine();
                 if (!line.startsWith("#")) {
                     String[] fields = parser.parseLine(line);
                     Monster m = csvRecordToMonster(fields);
@@ -39,6 +40,7 @@ public class MonsterDataParser {
             }
         } catch (IOException ex) {
             logger.error("Unable to parse CSV data", ex);
+            logger.error(String.format("Current line: %s", line));
         }
 
         return monsterData;
@@ -57,13 +59,5 @@ public class MonsterDataParser {
         String source = record[7];
         
         return new Monster(name, size, type, alignment, challenge, xp, source, tag);
-        /*
-        for (String s : record) {
-            System.out.print(s + ", ");
-        }
-        System.out.println();
-        
-        return new Monster("", 0);
-        */
     }
 }

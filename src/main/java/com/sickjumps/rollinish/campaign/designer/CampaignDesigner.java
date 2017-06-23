@@ -1,48 +1,53 @@
 /*
- * Copyright (C) 2017 
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package com.sickjumps.rollinish.campaign.designer;
 
-import javax.swing.AbstractListModel;
-import javax.swing.BorderFactory;
+import ca.odell.glazedlists.EventList;
+import com.sickjumps.rollinish.campaign.Campaign;
+import com.sickjumps.rollinish.campaign.DefaultCampaign;
+import com.sickjumps.rollinish.campaign.character.Participant;
+import com.sickjumps.rollinish.gui.AddNewPlayerDialog;
+import com.sickjumps.rollinish.gui.table.PlayerTableModel;
+import com.sickjumps.rollinish.gui.table.RowObjectTableModel;
+import com.sickjumps.rollinish.gui.table.TableFormatGenerator;
+import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
-import javax.swing.border.BevelBorder;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Nathan
  */
-public class CampaignDesigner extends javax.swing.JFrame {
+public class CampaignDesigner extends javax.swing.JDialog {
 
+    private Campaign campaign;
+    
     /**
      * Creates new form CampaignDesigner
      */
     public CampaignDesigner() {
+        super((Frame)null, true);
+        this.campaign = new DefaultCampaign();
+        
         initComponents();
+    }
+    
+    public Campaign getResult() {
+        this.setVisible(true);
+        
+        return this.campaign;
     }
 
     /**
@@ -54,120 +59,128 @@ public class CampaignDesigner extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new JPanel();
-        txtCampaignName = new JTextField();
         jLabel1 = new JLabel();
-        jSeparator1 = new JSeparator();
+        txtCampaignName = new JTextField();
+        btnAdd = new JButton();
+        btnRemove = new JButton();
         jScrollPane1 = new JScrollPane();
-        jTable1 = new JTable();
-        jScrollPane2 = new JScrollPane();
-        listEncounters = new JList<>();
-        btnClear = new JButton();
-        btnPlay = new JButton();
+        tblPlayers = new JTable(new PlayerTableModel(campaign.getAvailable(), TableFormatGenerator.getPlayerTableFormat()));
+        btnCancel = new JButton();
         btnSave = new JButton();
 
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        jPanel1.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-
-        GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 105, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Campaign Name");
 
-        jTable1.setModel(new DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+        btnAdd.setText("Add Player");
+        btnAdd.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                btnAddActionPerformed(evt);
             }
-        ));
-        jTable1.setFillsViewportHeight(true);
-        jScrollPane1.setViewportView(jTable1);
-
-        listEncounters.setModel(new AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(listEncounters);
 
-        btnClear.setText("Clear");
+        btnRemove.setText("Remove Player");
+        btnRemove.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                btnRemoveActionPerformed(evt);
+            }
+        });
 
-        btnPlay.setText("Play");
+        tblPlayers.setFillsViewportHeight(true);
+        jScrollPane1.setViewportView(tblPlayers);
 
-        btnSave.setText("Save");
+        btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
+
+        btnSave.setText("Save and Play");
+        btnSave.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                    .addComponent(jSeparator1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 874, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2)))
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 667, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCampaignName)
-                        .addGap(18, 18, 18)
+                        .addComponent(txtCampaignName))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAdd)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnRemove)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnSave)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnPlay)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnClear)))
+                        .addComponent(btnCancel)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCampaignName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(btnClear)
-                    .addComponent(btnPlay)
-                    .addComponent(btnSave))
+                    .addComponent(txtCampaignName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAdd)
+                    .addComponent(btnRemove))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE))
-                    .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancel)
+                    .addComponent(btnSave))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnAddActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        Participant p = new AddNewPlayerDialog(null, true).getResult();
+        
+        this.campaign.addAvailablePlayer(p);
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnRemoveActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
+        int index = tblPlayers.getSelectedRow();
+        
+        if (index == -1) return;
+        
+        RowObjectTableModel<Participant> model = (RowObjectTableModel<Participant>)tblPlayers.getModel();
+        
+        this.campaign.removeAvailablePlayer(model.getRow(index));
+    }//GEN-LAST:event_btnRemoveActionPerformed
+
+    private void btnCancelActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnSaveActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        this.campaign.setCampaignName(txtCampaignName.getText());
+        this.setVisible(false);
+    }//GEN-LAST:event_btnSaveActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private JButton btnClear;
-    private JButton btnPlay;
+    private JButton btnAdd;
+    private JButton btnCancel;
+    private JButton btnRemove;
     private JButton btnSave;
     private JLabel jLabel1;
-    private JPanel jPanel1;
     private JScrollPane jScrollPane1;
-    private JScrollPane jScrollPane2;
-    private JSeparator jSeparator1;
-    private JTable jTable1;
-    private JList<String> listEncounters;
+    private JTable tblPlayers;
     private JTextField txtCampaignName;
     // End of variables declaration//GEN-END:variables
 }

@@ -62,6 +62,6 @@ public enum Type {
         if (name.equalsIgnoreCase("plant")) return PLANT;
         if (name.equalsIgnoreCase("undead")) return UNDEAD;
         
-        throw new IllegalArgumentException(String.format("Invalid string parameter passed for Type: {}", name));
+        throw new IllegalArgumentException(String.format("Invalid string parameter passed for Type: %s", name));
     }
 }

@@ -43,6 +43,6 @@ public enum Size {
             return GARGANTUAN;
         }
 
-        throw new IllegalArgumentException(String.format("Invalid string parameter passed: {}", size));
+        throw new IllegalArgumentException(String.format("Invalid string parameter passed: %s", size));
     }
 }

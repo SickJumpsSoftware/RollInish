@@ -10,7 +10,7 @@ import com.sickjumps.rollinish.campaign.character.Participant;
 public class AddPlayerDialogTest {
 
     public static void main(String[] args) {
-        AddPlayerDialog dialog = new AddPlayerDialog(null, true);
+        AddNewPlayerDialog dialog = new AddNewPlayerDialog(null, true);
         Participant p = dialog.getResult();
         
         System.out.println(p);

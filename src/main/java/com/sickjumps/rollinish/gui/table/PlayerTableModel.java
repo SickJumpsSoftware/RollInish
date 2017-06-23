@@ -52,4 +52,8 @@ public class PlayerTableModel extends DefaultEventTableModel implements RowObjec
         this.players.remove(rowIndex);
     }
 
+    @Override
+    public void removeAllRows() {
+        this.players.clear();
+    }
 }

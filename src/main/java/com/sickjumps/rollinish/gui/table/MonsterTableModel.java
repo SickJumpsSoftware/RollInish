@@ -54,4 +54,9 @@ public class MonsterTableModel extends DefaultEventTableModel<Monster> implement
         this.monsterList.remove(rowIndex);
         super.fireTableDataChanged();
     }
+    
+    @Override
+    public void removeAllRows() {
+        this.monsterList.clear();
+    }
 }

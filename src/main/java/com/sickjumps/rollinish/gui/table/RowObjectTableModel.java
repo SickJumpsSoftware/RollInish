@@ -17,4 +17,5 @@ public interface RowObjectTableModel<T> {
     public void addRow(T t);
     public void insertRow(T t, int rowIndex);
     public void removeRow(int rowIndex);
+    public void removeAllRows();
 }

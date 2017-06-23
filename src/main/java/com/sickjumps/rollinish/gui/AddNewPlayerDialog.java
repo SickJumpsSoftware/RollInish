@@ -21,7 +21,7 @@ import javax.swing.WindowConstants;
  *
  * @author Nathan
  */
-public class AddPlayerDialog extends javax.swing.JDialog {
+public class AddNewPlayerDialog extends javax.swing.JDialog {
 
     private Participant player;
     
@@ -29,12 +29,13 @@ public class AddPlayerDialog extends javax.swing.JDialog {
      * Creates new form AddPlayerDialog
      * @inheritdoc
      */
-    public AddPlayerDialog(java.awt.Frame parent, boolean modal) {
+    public AddNewPlayerDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.getRootPane().setDefaultButton(this.btnOK);
     }
     
-    Participant getResult() {
+    public Participant getResult() {
         this.setVisible(true);
         
         return player;
@@ -59,6 +60,7 @@ public class AddPlayerDialog extends javax.swing.JDialog {
         btnOK = new JButton();
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Add New Player");
 
         jLabel1.setText("Player Name");
 

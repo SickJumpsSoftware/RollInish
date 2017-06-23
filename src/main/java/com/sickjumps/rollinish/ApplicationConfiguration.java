@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
  */
 
 public class ApplicationConfiguration {
-    private Preferences configuration;
+    private final Preferences configuration;
     private final static Logger logger = LoggerFactory.getLogger(ApplicationConfiguration.class);
     
     public ApplicationConfiguration() {

@@ -13,32 +13,23 @@ import java.io.Serializable;
  */
 
 public class Campaign implements Serializable {
-    private final String campaignName;
-    private EventList<Encounter> encounters;
+    private String campaignName;
     private EventList<Participant> available;
+    private EventList<Participant> active;
     
     public Campaign(String campaignName) {
         this.campaignName = campaignName;
         
-        this.encounters = GlazedLists.threadSafeList(new BasicEventList<>());
-        
+        this.active = GlazedLists.threadSafeList(new BasicEventList<>());
         this.available = GlazedLists.threadSafeList(new BasicEventList<>());
+    }
+    
+    public void setCampaignName(String campaignName) {
+        this.campaignName = campaignName;
     }
 
     public String getCampaignName() {
         return campaignName;
-    }
-
-    public EventList<Encounter> getEncounters() {
-        return encounters;
-    }
-    
-    public void setEncounters(EventList<Encounter> encounters) {
-        this.encounters = encounters;
-    }
-    
-    public void addEncounter(Encounter e) {
-        this.encounters.add(e);
     }
 
     public void setAvailable(EventList<Participant> available) {
@@ -55,5 +46,21 @@ public class Campaign implements Serializable {
     
     public void removeAvailablePlayer(Participant p) {
         this.available.remove(p);
+    }
+    
+    public EventList<Participant> getActive() {
+        return active;
+    }
+
+    public void setActive(EventList<Participant> active) {
+        this.active = active;
+    }
+    
+    public void removeActive(Participant p) {
+        this.active.remove(p);
+    }
+    
+    public void removeAllActive() {
+        this.active.clear();
     }
 }
