@@ -23,8 +23,6 @@ import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
 import java.util.List;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -291,6 +289,11 @@ jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(GroupLayout.A
 
     private void btnClearTableActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnClearTableActionPerformed
         this.campaign.removeAllActive();
+        
+        // force repaint as clearing the underlying model does not remove all
+        // rows from the view
+        this.tblActive.revalidate();
+        this.tblActive.repaint();
     }//GEN-LAST:event_btnClearTableActionPerformed
 
     private void btnRemoveActiveActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnRemoveActiveActionPerformed
