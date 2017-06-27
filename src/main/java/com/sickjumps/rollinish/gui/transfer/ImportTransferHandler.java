@@ -1,5 +1,7 @@
 package com.sickjumps.rollinish.gui.transfer;
 
+import com.sickjumps.rollinish.campaign.Dice;
+import com.sickjumps.rollinish.campaign.character.Monster;
 import com.sickjumps.rollinish.campaign.character.Participant;
 import com.sickjumps.rollinish.gui.table.PlayerTableModel;
 import java.awt.datatransfer.DataFlavor;
@@ -42,8 +44,13 @@ public class ImportTransferHandler extends TransferHandler {
         try {
             JTable table = (JTable) info.getComponent();
             PlayerTableModel model = (PlayerTableModel) table.getModel();
-
-            model.addRow((Participant) info.getTransferable().getTransferData(localDataFlavor));
+            
+            Participant toCopy = (Participant) info.getTransferable().getTransferData(localDataFlavor);
+            if (toCopy instanceof Monster) {
+                toCopy.setInitiative(Dice.rollD20(toCopy.getDexMod()));
+            }
+            
+            model.addRow(new Participant(toCopy));
 
             return true;
         } catch (UnsupportedFlavorException ufe) {

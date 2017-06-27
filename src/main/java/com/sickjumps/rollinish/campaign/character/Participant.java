@@ -17,12 +17,31 @@ public class Participant implements Serializable, Transferable {
     private String playerName;
     private int dexMod;
     private int initiative;
+    private int hp;
 
     public Participant(String characterName, String playerName, int dexMod) {
+        this(characterName, playerName, dexMod, 0);
+    }
+    
+    public Participant(String characterName, String playerName, int dexMod, int hp) {
         this.characterName = characterName;
         this.playerName = playerName;
         this.dexMod = dexMod;
+        this.hp = hp;
         this.initiative = 0;
+    }
+    
+    public Participant(Participant copy) {
+        this(copy.characterName, copy.playerName, copy.dexMod, copy.hp);
+        this.initiative = copy.initiative;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
     }
 
     public int getInitiative() {
@@ -64,6 +83,7 @@ public class Participant implements Serializable, Transferable {
         hash = 79 * hash + Objects.hashCode(this.playerName);
         hash = 79 * hash + this.dexMod;
         hash = 79 * hash + this.initiative;
+        hash = 79 * hash + this.hp;
         return hash;
     }
 
@@ -85,6 +105,9 @@ public class Participant implements Serializable, Transferable {
         if (this.initiative != other.initiative) {
             return false;
         }
+        if (this.hp != other.hp) {
+            return false;
+        }
         if (!Objects.equals(this.characterName, other.characterName)) {
             return false;
         }
@@ -96,7 +119,7 @@ public class Participant implements Serializable, Transferable {
 
     @Override
     public String toString() {
-        return "Participant{" + "characterName=" + characterName + ", playerName=" + playerName + ", dexMod=" + dexMod + ", initiative=" + initiative + '}';
+        return "Participant{" + "characterName=" + characterName + ", playerName=" + playerName + ", dexMod=" + dexMod + ", hp=" + hp + ", initiative=" + initiative + '}';
     }
 
     @Override

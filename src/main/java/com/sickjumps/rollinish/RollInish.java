@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,6 +39,13 @@ public final class RollInish {
 
         logger.info("Loading monster data");
         List<Monster> monsterData = app.loadMonsterData();
+        
+        logger.info("Setting Look&Feel");
+        try {
+            UIManager.setLookAndFeel(new javax.swing.plaf.nimbus.NimbusLookAndFeel());
+        } catch (UnsupportedLookAndFeelException ulafe) {
+            logger.debug("Nimbus L&F unsupported, reverting to default");
+        }
 
         SwingUtilities.invokeLater(() -> {
             Campaign c;

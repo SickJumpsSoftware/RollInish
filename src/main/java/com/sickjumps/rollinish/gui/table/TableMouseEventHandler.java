@@ -8,11 +8,11 @@ import javax.swing.JTable;
  *
  * @author Nathan
  */
-public class MouseOverAdapter extends MouseAdapter {
+public class TableMouseEventHandler extends MouseAdapter {
 
     private final JTable table;
 
-    public MouseOverAdapter(JTable table) {
+    public TableMouseEventHandler(JTable table) {
         this.table = table;
     }
 
@@ -24,9 +24,11 @@ public class MouseOverAdapter extends MouseAdapter {
             table.setRowSelectionInterval(row, row);
         }
     }
-
+    
     @Override
-    public void mouseExited(MouseEvent e) {
-        table.clearSelection();
+    public void mousePressed(MouseEvent e) {
+        int index = table.rowAtPoint(e.getPoint());
+        
+        if (index == -1) table.clearSelection();
     }
 }

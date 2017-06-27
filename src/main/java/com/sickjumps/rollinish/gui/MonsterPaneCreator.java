@@ -5,7 +5,7 @@ import ca.odell.glazedlists.GlazedLists;
 import ca.odell.glazedlists.gui.TableFormat;
 import com.sickjumps.rollinish.campaign.character.Monster;
 import com.sickjumps.rollinish.gui.table.MonsterTableModel;
-import com.sickjumps.rollinish.gui.table.MouseOverAdapter;
+import com.sickjumps.rollinish.gui.table.TableMouseEventHandler;
 import com.sickjumps.rollinish.gui.table.TableFormatGenerator;
 import com.sickjumps.rollinish.gui.transfer.ExportTransferHandler;
 import java.awt.Dimension;
@@ -45,9 +45,9 @@ class MonsterPaneCreator {
             table.setRowHeight(35);
             table.setIntercellSpacing(new Dimension(10, 15));
 
-            MouseOverAdapter adapter = new MouseOverAdapter(table);
-            table.addMouseMotionListener(adapter);
-            table.addMouseListener(adapter);
+            TableMouseEventHandler handler = new TableMouseEventHandler(table);
+            table.addMouseMotionListener(handler);
+            table.addMouseListener(handler);
 
             monsterPane.addTab(cr, new JScrollPane(table));
         });

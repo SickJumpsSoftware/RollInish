@@ -12,7 +12,7 @@ import com.sickjumps.rollinish.campaign.character.Monster;
 import com.sickjumps.rollinish.campaign.character.Participant;
 import com.sickjumps.rollinish.campaign.character.comparator.InitiativeComparator;
 import com.sickjumps.rollinish.gui.table.CellClickHandler;
-import com.sickjumps.rollinish.gui.table.MouseOverAdapter;
+import com.sickjumps.rollinish.gui.table.TableMouseEventHandler;
 import com.sickjumps.rollinish.gui.table.PlayerTableModel;
 import com.sickjumps.rollinish.gui.table.RowObjectTableModel;
 import com.sickjumps.rollinish.gui.table.TableFormatGenerator;
@@ -44,6 +44,7 @@ public final class CampaignViewerFrame extends JFrame {
 
     private final List<Monster> monsterData;
     private final Campaign campaign;
+    private final SortedList<Participant> sortedPlayers;
 
     /**
      * Creates new form CampaignViewerFrame
@@ -53,23 +54,18 @@ public final class CampaignViewerFrame extends JFrame {
         this.campaign = c;
 
         initComponents();
+        
+        this.sortedPlayers = new SortedList<>(campaign.getActive(), new InitiativeComparator());
 
-        configureTables();
+        configureAvailableTable();
+        configureActiveTable();
 
         this.paneTables.setResizeWeight(0.5d);
         this.paneTables.setEnabled(false);
         this.pack();
     }
 
-    private void configureTables() {
-        configureActiveTable();
-
-        configureAvailableTable();
-    }
-
     private void configureAvailableTable() {
-        MouseOverAdapter adapter = new MouseOverAdapter(tblAvailable);
-
         tblAvailable.setTransferHandler(new ExportTransferHandler());
         tblAvailable.setDragEnabled(true);
 
@@ -79,22 +75,21 @@ public final class CampaignViewerFrame extends JFrame {
         tblAvailable.setModel(new PlayerTableModel(campaign.getAvailable(),
                 TableFormatGenerator.getPlayerTableFormat()));
 
-        tblAvailable.addMouseMotionListener(adapter);
-        tblAvailable.addMouseListener(adapter);
+        TableMouseEventHandler handler = new TableMouseEventHandler(tblAvailable);
+        tblAvailable.addMouseMotionListener(handler);
+        tblAvailable.addMouseListener(handler);
     }
 
     private void configureActiveTable() {
-        MouseOverAdapter adapter = new MouseOverAdapter(tblActive);
-
-        SortedList<Participant> playerList = new SortedList<>(campaign.getActive(), new InitiativeComparator());
-        TableComparatorChooser<Participant> sorter
-                = TableComparatorChooser.install(tblActive,
-                        playerList,
-                        TableComparatorChooser.SINGLE_COLUMN);
+        TableComparatorChooser.install(
+                tblActive,
+                this.sortedPlayers,
+                TableComparatorChooser.SINGLE_COLUMN
+        );
 
         tblActive.setModel(
                 new PlayerTableModel(
-                        playerList,
+                        this.sortedPlayers,
                         TableFormatGenerator.getActivePlayerTableFormat()));
 
         tblActive.setTransferHandler(new ImportTransferHandler());
@@ -103,8 +98,9 @@ public final class CampaignViewerFrame extends JFrame {
         tblActive.setRowHeight(50);
         tblActive.setIntercellSpacing(new Dimension(10, 15));
 
-        tblActive.addMouseMotionListener(adapter);
-        tblActive.addMouseListener(adapter);
+        TableMouseEventHandler handler = new TableMouseEventHandler(tblActive);
+        tblActive.addMouseMotionListener(handler);
+        tblActive.addMouseListener(handler);
         tblActive.addMouseListener(new CellClickHandler(tblActive));
     }
 
